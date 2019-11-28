@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Coursework.Types
 {
-    class MedicalRecord
+    public class MedicalRecord
     {
         [Key]
         public int Id { get; set; }

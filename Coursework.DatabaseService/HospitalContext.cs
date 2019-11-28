@@ -11,6 +11,7 @@ namespace Coursework.DAL
         public DbSet<Doctor> Doctors { get; private set; }
         public DbSet<Patient> Patients { get; private set; }
         public DbSet<Appointment> Appointments { get; private set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; private set; }
 
         public HospitalContext()
             : base()
@@ -32,6 +33,11 @@ namespace Coursework.DAL
             modelBuilder.Entity<Patient>()
                 .HasMany(p => p.Appointments)
                 .WithOne(p => p.Patient)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Patient>()
+                .HasMany(p => p.MedicalRecords)
+                .WithOne(m => m.Patient)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
