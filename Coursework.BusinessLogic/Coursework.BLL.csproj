@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coursework.DatabaseService\Coursework.DAL.csproj" />
+    <ProjectReference Include="..\Coursework.Types\Coursework.Types.csproj" />
+  </ItemGroup>
+
+</Project>
