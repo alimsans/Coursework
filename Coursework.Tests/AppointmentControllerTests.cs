@@ -46,6 +46,14 @@ namespace Coursework.Tests
         }
 
         [Fact]
+        public void AddAppointment_ShouldThrowArgNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(null));
+            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(new Appointment(new Doctor(), null)));
+            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(new Appointment(null, new Patient())));
+        }
+
+        [Fact]
         public void RemoveAppointment_ShouldRemove()
         {
             Patient patient = new Patient("Foo", "Patient to remove");

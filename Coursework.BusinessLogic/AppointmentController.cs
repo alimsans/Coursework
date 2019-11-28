@@ -22,12 +22,12 @@ namespace Coursework.BLL
         /// <summary>
         /// Add an appointment to the db
         /// </summary>
-        /// <exception cref="ArgumentException">Appointment, Appointment.Doctor or Appointment.Patient is NULL</exception>
+        /// <exception cref="ArgumentNullException">Appointment, Appointment.Doctor or Appointment.Patient is NULL</exception>
         public void AddAppointment(Appointment appointment)
         {
-            if (appointment == null) throw new ArgumentException(nameof(appointment));
-            if (appointment.Doctor == null) throw new ArgumentException(nameof(appointment.Doctor));
-            if (appointment.Patient == null) throw new ArgumentException(nameof(appointment.Patient));
+            if (appointment == null) throw new ArgumentNullException(nameof(appointment));
+            if (appointment.Doctor == null) throw new ArgumentNullException(nameof(appointment.Doctor));
+            if (appointment.Patient == null) throw new ArgumentNullException(nameof(appointment.Patient));
 
             this._context.Appointments.Add(appointment);
             this._context.SaveChanges();
