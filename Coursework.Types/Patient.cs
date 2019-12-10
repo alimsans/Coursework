@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace Coursework.Types
 {
-    public class Patient
+    public class Patient : IEquatable<Patient>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -31,17 +32,15 @@ namespace Coursework.Types
             oldDoctor.LastName = newDoctor.LastName;
         }
 
-        public override bool Equals(object obj)
+        public bool Equals([AllowNull] Patient other)
         {
-            if (obj == null || obj.GetType() != typeof(Patient))
+            if (other == null)
                 return false;
 
-            return this.Id == ((Patient)obj).Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Id.GetHashCode();
+            if (this.Id == other.Id)
+                return true;
+            else
+                return false;
         }
     }
 }

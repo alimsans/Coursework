@@ -20,7 +20,6 @@ namespace Coursework.PL.ViewModels
 
         internal PatientsViewModel()
         {
-            _controller = new PatientController();
             _patients = new ObservableCollection<Patient>();
             _patients.CollectionChanged += Patients_CollectionChanged;
         }
@@ -36,15 +35,17 @@ namespace Coursework.PL.ViewModels
 
             if (patients != null)
             {
-                lock (this.Patients)
+                lock (_patients)
                 {
-                    this.Patients.Clear();
+                    _patients.Clear();
                     foreach (var patient in patients)
                     {
-                        this.Patients.Add(patient);
+                        _patients.Add(patient);
                     }
                 }
             }
+
+            patients.Clear();
         }
 
         /// <summary>
@@ -64,9 +65,12 @@ namespace Coursework.PL.ViewModels
         /// <param name="newPatient">new patient to replace the old one</param>
         internal async Task EditPatientAsync(Patient oldPatient, Patient newPatient)
         {
-            await Task.Run(() => _controller.AlterPatientInfo(oldPatient, newPatient));
+            using (_controller = new PatientController())
+            {
+                await Task.Run(() => _controller.AlterPatientInfo(SelectedPatient, newPatient));
 
-            await this.UpdatePatientsAsync();
+                await this.UpdatePatientsAsync();
+            }
         }
 
         /// <summary>
