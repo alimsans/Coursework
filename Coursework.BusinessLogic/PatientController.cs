@@ -91,6 +91,5 @@ namespace Coursework.BLL
             this._context.Patients.Update(oldPatient);
             this._context.SaveChanges();
         }
-
     }
 }

@@ -113,12 +113,12 @@ namespace Coursework.Tests
             Doctor oldDoctor = new Doctor("Foo", "Doc old", "Numb to alter");
             Patient oldPatient = new Patient("Foo", "Patient old");
             Appointment oldAppointment = new Appointment(oldDoctor, oldPatient);
-            _controller.AddAppointment(oldAppointment);
-
-            Assert.Equal(oldAppointment, _controller.GetAppointment(oldAppointment.Id));
-
             Doctor newDoctor = new Doctor("Foo", "Doc new", "Numb altered");
             Patient newPatient = new Patient("Foo", "Patient new");
+
+            _controller.AddAppointment(oldAppointment);
+            Assert.Equal(oldAppointment, _controller.GetAppointment(oldAppointment.Id));
+
             Appointment newAppointment = new Appointment(newDoctor, newPatient) { Id = oldAppointment.Id };
             _controller.AlterAppointment(oldAppointment, newAppointment);
 

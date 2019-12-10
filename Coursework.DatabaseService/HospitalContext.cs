@@ -47,6 +47,7 @@ namespace Coursework.DAL
             {
                 optionsBuilder.UseSqlServer(_connectionString);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                optionsBuilder.EnableSensitiveDataLogging();
             }
         }
     }

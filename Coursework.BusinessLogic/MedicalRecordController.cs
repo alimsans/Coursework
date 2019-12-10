@@ -57,5 +57,18 @@ namespace Coursework.BLL
 
             return _context.MedicalRecords.AsNoTracking().Where(m => m.Patient == patient).ToList();
         }
+
+        /// <summary>
+        /// Gets medical record by id
+        /// </summary>
+        /// <param name="id">Id of the record</param>
+        /// <returns>Medical record</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public MedicalRecord GetMedicalRecord(int id)
+        {
+            if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
+
+            return _context.MedicalRecords.AsNoTracking().Where(m => m.Id == id).FirstOrDefault();
+        }
     }
 }

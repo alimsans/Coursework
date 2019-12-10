@@ -49,7 +49,7 @@ namespace Coursework.BLL
         }
 
         /// <summary>
-        /// Alter an existing appointment in the db
+        /// Alters an existing appointment in the db
         /// </summary>
         /// <param name="id">Id of the appointment to be altered</param>
         /// <param name="appointment">New appointment to be replaced with</param>

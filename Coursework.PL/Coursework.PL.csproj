@@ -6,4 +6,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Page Remove="Views\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="Views\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Coursework.BusinessLogic\Coursework.BLL.csproj" />
+    <ProjectReference Include="..\Coursework.Tests\Coursework.Tests.csproj" />
+  </ItemGroup>
+
 </Project>

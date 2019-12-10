@@ -48,5 +48,19 @@ namespace Coursework.Tests
         {
             Assert.Throws<ArgumentNullException>(() => _controller.AddMedicalRecord(null));
         }
+
+        [Fact]
+        public void RemoveMedicalRecord_ShouldRemove()
+        {
+            Patient patient = new Patient("Foo", "To record");
+            MedicalRecord recordToRemove = new MedicalRecord
+                (patient, DateTime.Parse("2019-10-10"), DateTime.Parse("2019-12-12"), "Cancer");
+
+            this._controller.AddMedicalRecord(recordToRemove);
+            Assert.Equal(recordToRemove, this._controller.GetMedicalRecord(recordToRemove.Id));
+
+            this._controller.RemoveMedicalRecord(recordToRemove);
+            Assert.Null(this._controller.GetMedicalRecord(recordToRemove.Id));
+        }
     }
 }
