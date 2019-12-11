@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+
+
 namespace Coursework.Types
 {
-    public class Appointment
+    public class Appointment : IEquatable<Appointment>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -32,24 +35,19 @@ namespace Coursework.Types
         }
 
 
-        public static void Сlone(ref Appointment oldAppointment, Appointment newAppointment)
+        public void Copy(Appointment newAppointment)
         {
-            oldAppointment.Doctor = newAppointment.Doctor;
-            oldAppointment.Patient = newAppointment.Patient;
-            oldAppointment.DateTime = newAppointment.DateTime;
+            this.Doctor = newAppointment.Doctor;
+            this.Patient = newAppointment.Patient;
+            this.DateTime = newAppointment.DateTime;
         }
 
-        public override bool Equals(object obj)
+        public bool Equals([AllowNull] Appointment other)
         {
-            if (obj == null || obj.GetType() != typeof(Appointment))
+            if (other == null || other.GetType() != typeof(Appointment))
                 return false;
 
-            return this.Id == ((Appointment)obj).Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Id.GetHashCode();
+            return this.Id == other.Id;
         }
     }
 }

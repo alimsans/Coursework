@@ -1,0 +1,54 @@
+﻿<Window x:Class="Coursework.PL.Doctors.Views.AddDoctorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Coursework.PL.Doctors.Views"
+        mc:Ignorable="d"
+        Title="AddDoctorView" Height="450" Width="800">
+    
+    
+    <StackPanel Margin="10">
+        <TextBlock Text="Add a new doctor" FontSize="30" Margin="0,15" FontWeight="SemiBold"/>
+        <!-- Data -->
+        <!-- First name -->
+        <TextBlock Text="First name"/>
+        <TextBox x:Name="FirstName_TextBox"/>
+
+        <!-- Last name -->
+        <TextBlock Text="Last name"/>
+        <TextBox x:Name="LastName_TextBox"/>
+        
+        <!-- Occupation -->
+        <TextBlock Text="Occupation"/>
+        <TextBox x:Name="Occupation_TextBox"/>
+
+        <!-- Buttons grid -->
+        <Grid Margin="0,30,0,0">
+            <Button x:Name="Add_Button" Content="Add" Click="Add_Button_Click" Grid.Column="0"/>
+            <Button x:Name="Cancel_Button" Content="Cancel" Click="Cancel_Button_Click" Grid.Column="2"/>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <!-- Stack panel style -->
+        <StackPanel.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="MinHeight" Value="40"/>
+            </Style>
+        </StackPanel.Resources>
+
+    </StackPanel>
+</Window>

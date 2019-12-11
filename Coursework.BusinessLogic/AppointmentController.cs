@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace Coursework.BLL
 {
+    /// <summary>
+    /// Class object should be disposed with every use.
+    /// </summary>
     public class AppointmentController : Controller
     {
         public AppointmentController()
@@ -29,14 +32,18 @@ namespace Coursework.BLL
             if (appointment.Doctor == null) throw new ArgumentNullException(nameof(appointment.Doctor));
             if (appointment.Patient == null) throw new ArgumentNullException(nameof(appointment.Patient));
 
-            this._context.Appointments.Add(appointment);
-            this._context.SaveChanges();
+            _context.Appointments.Add(appointment);
+            _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Removes an appointment from the db
+        /// </summary>
+        /// <param name="appointment"></param>
         public void RemoveAppointment(Appointment appointment)
         {
-            this._context.Appointments.Remove(appointment);
-            this._context.SaveChanges();
+            _context.Appointments.Remove(appointment);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -45,7 +52,12 @@ namespace Coursework.BLL
         /// <param name="id">Appointment id</param>
         public Appointment GetAppointment(int id)
         {
-            return this._context.Appointments.AsNoTracking().Where(d => d.Id == id).FirstOrDefault();
+            return _context.Appointments
+                .Include(p => p.Patient)
+                .Include(d => d.Doctor)
+                .AsNoTracking()
+                .Where(d => d.Id == id)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -62,9 +74,9 @@ namespace Coursework.BLL
             if (newAppointment.Patient == null) throw new ArgumentNullException(nameof(newAppointment.Patient));
             if (oldAppointment == null) throw new ArgumentNullException(nameof(oldAppointment));
 
-            Appointment.Сlone(ref oldAppointment, newAppointment);
-            this._context.Appointments.Update(oldAppointment);
-            this._context.SaveChanges();
+            oldAppointment.Copy(newAppointment);
+            _context.Appointments.Update(oldAppointment);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -73,7 +85,7 @@ namespace Coursework.BLL
         /// <returns>Appointments in the db. NULL if no appointments found</returns>
         public ICollection<Appointment> GetAppointments()
         {
-            return this._context.Appointments.ToList();
+            return _context.Appointments.ToList();
         }
 
         /// <summary>
@@ -85,7 +97,11 @@ namespace Coursework.BLL
         {
             if (from >= until) throw new ArgumentException("Invalid date time");
 
-            return this._context.Appointments.Where(a => a.DateTime >= from && a.DateTime <= until).ToList();
+            return _context.Appointments
+                .Include(p => p.Patient)
+                .Include(d => d.Doctor)
+                .Where(a => a.DateTime >= from && a.DateTime <= until)
+                .ToList();
         }
 
         /// <summary>
@@ -95,7 +111,11 @@ namespace Coursework.BLL
         /// <returns>Matched appointments. NULL if no appointments found.</returns>
         public ICollection<Appointment> GetAppointments(DateTime day)
         {
-            return this._context.Appointments.Where(a => a.DateTime.Date == day.Date).ToList();
+            return _context.Appointments
+                .Include(p => p.Patient)
+                .Include(d => d.Doctor)
+                .Where(a => a.DateTime.Date == day.Date)
+                .ToList();
         }
 
 
@@ -109,7 +129,11 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            return this._context.Appointments.Where(a => a.Doctor.Id == doctor.Id).ToList();
+            return _context.Appointments
+                .Include(p => p.Patient)
+                .Include(d => d.Doctor)
+                .Where(a => a.Doctor.Id == doctor.Id)
+                .ToList();
         }
     }
 }

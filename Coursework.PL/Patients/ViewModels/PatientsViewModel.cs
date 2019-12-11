@@ -16,7 +16,7 @@ namespace Coursework.PL.ViewModels
         private ObservableCollection<Patient> _patients;
         internal ObservableCollection<Patient> Patients { get => _patients; }
 
-        public Patient SelectedPatient { get; set; }
+        internal Patient SelectedPatient { get; set; }
 
         internal PatientsViewModel()
         {
@@ -31,7 +31,8 @@ namespace Coursework.PL.ViewModels
         internal async Task UpdatePatientsAsync()
         {
             List<Patient> patients = null;
-            await Task.Run(() => patients = (List<Patient>)_controller.GetPatients());
+            using (_controller = new PatientController()) 
+                await Task.Run(() => patients = (List<Patient>)_controller.GetPatients());
 
             if (patients != null)
             {
@@ -44,8 +45,6 @@ namespace Coursework.PL.ViewModels
                     }
                 }
             }
-
-            patients.Clear();
         }
 
         /// <summary>
@@ -53,7 +52,8 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task AddPatientAsync(Patient patient)
         {
-            await Task.Run(() => _controller.AddPatient(patient));
+            using(_controller = new PatientController())
+                await Task.Run(() => _controller.AddPatient(patient));
 
             await this.UpdatePatientsAsync();
         }
@@ -66,11 +66,9 @@ namespace Coursework.PL.ViewModels
         internal async Task EditPatientAsync(Patient oldPatient, Patient newPatient)
         {
             using (_controller = new PatientController())
-            {
                 await Task.Run(() => _controller.AlterPatientInfo(SelectedPatient, newPatient));
 
-                await this.UpdatePatientsAsync();
-            }
+            await this.UpdatePatientsAsync();
         }
 
         /// <summary>
@@ -79,11 +77,31 @@ namespace Coursework.PL.ViewModels
         /// <param name="patient">patient to be removed</param>
         internal async Task RemovePatientAsync(Patient patient)
         {
-            await Task.Run(() => _controller.RemovePatient(patient));
+            using (_controller = new PatientController())
+                await Task.Run(() => _controller.RemovePatient(patient));
 
             await this.UpdatePatientsAsync();
         }
 
+        internal async Task SearchPatientsByNameAsync(string firstName, string secondName)
+        {
+            List<Patient> searchResult = null;
+            using (_controller = new PatientController())
+                await Task.Run(() => searchResult = (List<Patient>)_controller.GetPatientsByName(firstName, secondName));
+
+            if (searchResult != null) 
+            {
+                lock (_patients)
+                {
+                    _patients.Clear();
+
+                    foreach (Patient patient in searchResult)
+                    {
+                        _patients.Add(patient);
+                    }
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void Patients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

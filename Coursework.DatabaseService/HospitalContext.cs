@@ -30,6 +30,11 @@ namespace Coursework.DAL
                 .WithOne(a => a.Doctor)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Doctor>()
+                .HasMany(w => w.WorkDays)
+                .WithOne(a => a.Doctor)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Patient>()
                 .HasMany(p => p.Appointments)
                 .WithOne(p => p.Patient)
@@ -48,6 +53,7 @@ namespace Coursework.DAL
                 optionsBuilder.UseSqlServer(_connectionString);
                 optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 optionsBuilder.EnableSensitiveDataLogging();
+
             }
         }
     }

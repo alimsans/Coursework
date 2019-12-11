@@ -12,7 +12,7 @@ namespace Coursework.Tests
     public class MedicalRecordControllerTests : IDisposable
     {
         private DbContextOptions<HospitalContext> _options;
-        private MedicalRecordController _controller;
+        private MedicalRecordsController _controller;
 
         public MedicalRecordControllerTests()
         {
@@ -21,7 +21,7 @@ namespace Coursework.Tests
                 .UseInMemoryDatabase(databaseName: "HospitalTestDb" + random.Next(int.MinValue, int.MaxValue))
                 .Options;
 
-            this._controller = new MedicalRecordController(this._options);
+            this._controller = new MedicalRecordsController(this._options);
         }
 
         public void Dispose()

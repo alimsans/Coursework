@@ -26,21 +26,18 @@ namespace Coursework.Types
             this.LastName = lastName;
         }
 
-        public static void Clone(ref Patient oldDoctor, Patient newDoctor)
+        public void Copy(Patient other)
         {
-            oldDoctor.FirstName = newDoctor.FirstName;
-            oldDoctor.LastName = newDoctor.LastName;
+            this.FirstName = other.FirstName;
+            this.LastName = other.LastName;
         }
 
         public bool Equals([AllowNull] Patient other)
         {
-            if (other == null)
+            if (other == null || other.GetType() != typeof(Patient))
                 return false;
 
-            if (this.Id == other.Id)
-                return true;
-            else
-                return false;
+            return this.Id == other.Id;
         }
     }
 }

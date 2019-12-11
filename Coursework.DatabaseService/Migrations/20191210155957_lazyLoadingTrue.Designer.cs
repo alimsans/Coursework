@@ -4,14 +4,16 @@ using Coursework.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Coursework.DAL.Migrations
 {
     [DbContext(typeof(HospitalContext))]
-    partial class DbServiceModelSnapshot : ModelSnapshot
+    [Migration("20191210155957_lazyLoadingTrue")]
+    partial class lazyLoadingTrue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,32 +111,6 @@ namespace Coursework.DAL.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("Coursework.Types.WorkDay", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Day")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("From")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Until")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("WorkDay");
-                });
-
             modelBuilder.Entity("Coursework.Types.Appointment", b =>
                 {
                     b.HasOne("Coursework.Types.Doctor", "Doctor")
@@ -153,14 +129,6 @@ namespace Coursework.DAL.Migrations
                     b.HasOne("Coursework.Types.Patient", "Patient")
                         .WithMany("MedicalRecords")
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Coursework.Types.WorkDay", b =>
-                {
-                    b.HasOne("Coursework.Types.Doctor", "Doctor")
-                        .WithMany("WorkDays")
-                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

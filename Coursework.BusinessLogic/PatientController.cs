@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Coursework.BLL
 {
+    /// <summary>
+    /// Class object should be disposed with every use.
+    /// </summary>
     public class PatientController : Controller
     {
         public PatientController()
@@ -28,8 +31,8 @@ namespace Coursework.BLL
         /// <returns>Id of the added patient</returns>
         public int AddPatient(Patient patient)
         {
-            int id = this._context.Patients.Add(patient).Entity.Id;
-            this._context.SaveChanges();
+            int id = _context.Patients.Add(patient).Entity.Id;
+            _context.SaveChanges();
 
             return id;
         }
@@ -41,7 +44,12 @@ namespace Coursework.BLL
         /// <returns>Patient from the db. NULL if not found</returns>
         public Patient GetPatient(int id)
         {
-            return this._context.Patients.AsNoTracking().Where(d => d.Id == id).FirstOrDefault();
+            return _context.Patients
+                .Include(p => p.Appointments)
+                .Include(r => r.MedicalRecords)
+                .AsNoTracking()
+                .Where(d => d.Id == id)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -50,7 +58,11 @@ namespace Coursework.BLL
         /// <returns>Patients from the db. NULL if not found.</returns>
         public ICollection<Patient> GetPatients()
         {
-            return this._context.Patients.AsNoTracking().ToList();
+            return _context.Patients
+                .Include(p => p.Appointments)
+                .Include(r => r.MedicalRecords)
+                .AsNoTracking()
+                .ToList();
         }
 
         /// <summary>
@@ -61,7 +73,12 @@ namespace Coursework.BLL
         /// <returns>Patients from the db. NULL if not found.</returns>
         public ICollection<Patient> GetPatientsByName(string firstName, string lastName)
         {
-            return this._context.Patients.AsNoTracking().Where(d => d.FirstName == firstName && d.LastName == lastName).ToList();
+            return _context.Patients
+                .Include(p => p.Appointments)
+                .Include(r => r.MedicalRecords)
+                .AsNoTracking()
+                .Where(d => d.FirstName == firstName && d.LastName == lastName)
+                .ToList();
         }
 
         /// <summary>
@@ -71,8 +88,8 @@ namespace Coursework.BLL
         /// <exception cref="DbUpdateConcurrencyException">Patient was not found</exception>
         public void RemovePatient(Patient patient)
         {
-            this._context.Remove(patient);
-            this._context.SaveChanges();
+            _context.Remove(patient);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -87,9 +104,9 @@ namespace Coursework.BLL
             if (newPatient == null) throw new ArgumentNullException(nameof(newPatient));
             if (oldPatient == null) throw new ArgumentNullException(nameof(oldPatient));
 
-            Patient.Clone(ref oldPatient, newPatient);
-            this._context.Patients.Update(oldPatient);
-            this._context.SaveChanges();
+            oldPatient.Copy(newPatient);
+            _context.Patients.Update(oldPatient);
+            _context.SaveChanges();
         }
     }
 }

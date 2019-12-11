@@ -8,13 +8,16 @@ using System.Text;
 
 namespace Coursework.BLL
 {
-    public class MedicalRecordController : Controller
+    /// <summary>
+    /// Class object should be disposed with every use.
+    /// </summary>
+    public class MedicalRecordsController : Controller
     {
-        public MedicalRecordController()
+        public MedicalRecordsController()
         {
         }
 
-        public MedicalRecordController(DbContextOptions<HospitalContext> options)
+        public MedicalRecordsController(DbContextOptions<HospitalContext> options)
             : base(options)
         {
         }
@@ -27,8 +30,11 @@ namespace Coursework.BLL
         public void AddMedicalRecord(MedicalRecord record)
         {
             if (record == null) throw new ArgumentNullException(nameof(record));
+            if (record.Patient == null) throw new ArgumentNullException(nameof(record.Patient));
 
-            _context.MedicalRecords.Add(record);
+            Patient tmpPatient = record.Patient;
+            record.Patient = null;
+            _context.MedicalRecords.Add(record).Entity.Patient = tmpPatient;
             _context.SaveChanges();
         }
 
@@ -55,7 +61,11 @@ namespace Coursework.BLL
         {
             if (patient == null) throw new ArgumentNullException(nameof(patient));
 
-            return _context.MedicalRecords.AsNoTracking().Where(m => m.Patient == patient).ToList();
+            return _context.MedicalRecords
+                .Include(p => p.Patient)
+                .AsNoTracking()
+                .Where(m => m.Patient == patient)
+                .ToList();
         }
 
         /// <summary>
@@ -68,7 +78,11 @@ namespace Coursework.BLL
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            return _context.MedicalRecords.AsNoTracking().Where(m => m.Id == id).FirstOrDefault();
+            return _context.MedicalRecords
+                .Include(p => p.Patient)
+                .AsNoTracking()
+                .Where(m => m.Id == id)
+                .FirstOrDefault();
         }
     }
 }

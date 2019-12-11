@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Coursework.BLL
 {
+    /// <summary>
+    /// Class object should be disposed with every use.
+    /// </summary>
     public class DoctorController : Controller
     {
         public DoctorController()
@@ -30,8 +33,8 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            this._context.Doctors.Add(doctor);
-            this._context.SaveChanges();
+            _context.Doctors.Add(doctor);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -41,7 +44,12 @@ namespace Coursework.BLL
         /// <returns>Doctor from the db. NULL if not found</returns>
         public Doctor GetDoctor(int id)
         {
-            return this._context.Doctors.AsNoTracking().Where(d => d.Id == id).FirstOrDefault();
+            return _context.Doctors
+                .Include(p => p.Appointments)
+                .Include(w => w.WorkDays)
+                .AsNoTracking()
+                .Where(d => d.Id == id)
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -50,7 +58,11 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctors()
         {
-            return this._context.Doctors.AsNoTracking().ToList();
+            return _context.Doctors
+                .Include(p => p.Appointments)
+                .Include(w => w.WorkDays)
+                .AsNoTracking()
+                .ToList();
         }
 
         /// <summary>
@@ -61,7 +73,12 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctorsByName(string firstName, string lastName)
         {
-            return this._context.Doctors.AsNoTracking().Where(d => d.FirstName == firstName && d.LastName == lastName).ToList();
+            return _context.Doctors
+                .Include(p => p.Appointments)
+                .Include(w => w.WorkDays)
+                .AsNoTracking()
+                .Where(d => d.FirstName == firstName && d.LastName == lastName)
+                .ToList();
         }
 
         /// <summary>
@@ -71,7 +88,12 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if no doctor with specified occupation.</returns>
         public ICollection<Doctor> GetDoctorsByOccupation(string occupation)
         {
-            return this._context.Doctors.AsNoTracking().Where(d => d.Occupation == occupation).ToList();
+            return _context.Doctors
+                .Include(p => p.Appointments)
+                .Include(w => w.WorkDays)
+                .AsNoTracking()
+                .Where(d => d.Occupation == occupation)
+                .ToList();
         }
 
         /// <summary>
@@ -81,8 +103,8 @@ namespace Coursework.BLL
         /// <exception cref="DbUpdateConcurrencyException">Doctor was not found</exception>
         public void RemoveDoctor(Doctor doctor)
         {
-            this._context.Doctors.Remove(doctor);
-            this._context.SaveChanges();
+            _context.Doctors.Remove(doctor);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -97,9 +119,9 @@ namespace Coursework.BLL
             if (newDoctor == null) throw new ArgumentNullException(nameof(newDoctor));
             if (oldDoctor == null) throw new ArgumentNullException(nameof(oldDoctor));
 
-            Doctor.Clone(ref oldDoctor, newDoctor);
-            this._context.Doctors.Update(oldDoctor);
-            this._context.SaveChanges();
+            oldDoctor.Copy(newDoctor);
+            _context.Doctors.Update(oldDoctor);
+            _context.SaveChanges();
         }
     }
 }

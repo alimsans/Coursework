@@ -26,7 +26,8 @@ namespace Coursework.PL.Views.Patients
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) || string.IsNullOrEmpty(this.LastName_TextBox.Text))
+            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) 
+                || string.IsNullOrEmpty(this.LastName_TextBox.Text))
             {
                 MessageBox.Show("Name cannot be empty.");
                 return;

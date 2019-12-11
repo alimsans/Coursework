@@ -1,4 +1,5 @@
-﻿using Coursework.PL.Views;
+﻿using Coursework.PL.Doctors.Views;
+using Coursework.PL.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,20 +23,22 @@ namespace Coursework.PL
     public partial class MainWindow : Window
     {
         PatientsPage _patientsPage;
+        DoctorsPage _doctorsPage;
         public MainWindow()
         {
             InitializeComponent();
-            this._patientsPage = new PatientsPage();
+            _patientsPage = new PatientsPage();
+            _doctorsPage = new DoctorsPage();
         }
 
         private void Patients_Button_Click(object sender, RoutedEventArgs e)
         {
-            Main_Frame.Navigate(this._patientsPage);
+            Main_Frame.Navigate(_patientsPage);
         }
 
         private void Doctors_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Main_Frame.Navigate(_doctorsPage);
         }
 
         private void Appointments_Button_Click(object sender, RoutedEventArgs e)

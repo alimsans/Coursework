@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace Coursework.Types
 {
-    public class Doctor
+    public class Doctor : IEquatable<Doctor>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -14,6 +15,7 @@ namespace Coursework.Types
         public string LastName { get; set; }
         public string Occupation { get; set; }
         public List<Appointment> Appointments { get; set; }
+        public ICollection<WorkDay> WorkDays { get; set; }
 
         public Doctor()
         {
@@ -25,26 +27,30 @@ namespace Coursework.Types
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Occupation = occupation;
+            this.WorkDays = new WorkDay().GetDefaultWorkWeek();
         }
 
-        public static void Clone(ref Doctor oldDoctor, Doctor newDoctor)
+        public Doctor(string firstName, string lastName, string occupation, ICollection<WorkDay> workDays)
         {
-            oldDoctor.FirstName = newDoctor.FirstName;
-            oldDoctor.LastName = newDoctor.LastName;
-            oldDoctor.Occupation = newDoctor.Occupation;
+            this.FirstName  = firstName;
+            this.LastName   = lastName;
+            this.Occupation = occupation;
+            this.WorkDays   = workDays;
         }
 
-        public override bool Equals(object obj)
+        public void Copy(Doctor other)
         {
-            if (obj == null || obj.GetType() != typeof(Doctor))
+            this.FirstName  = other.FirstName;
+            this.LastName   = other.LastName;
+            this.Occupation = other.Occupation;
+        }
+
+        public bool Equals([AllowNull] Doctor other)
+        {
+            if (other == null || other.GetType() != typeof(Doctor))
                 return false;
 
-            return this.Id == ((Doctor)obj).Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Id.GetHashCode();
+            return this.Id == other.Id;
         }
     }
 }

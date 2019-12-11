@@ -42,7 +42,7 @@ namespace Coursework.Tests
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
+        [Fact]  
         public void AddDoctor_ShouldThrowNullArg()
         {
             Assert.Throws<ArgumentNullException>(() => this._controller.AddDoctor(null));

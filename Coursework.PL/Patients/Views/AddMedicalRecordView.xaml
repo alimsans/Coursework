@@ -1,0 +1,54 @@
+﻿<Window x:Class="Coursework.PL.Patients.Views.AddMedicalRecordView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Coursework.PL.Patients.Views"
+        mc:Ignorable="d"
+        Title="AddMedicalRecordView" Height="450" Width="800">
+    
+    <StackPanel Margin="10">
+        <TextBlock Text="Add a medical record" FontSize="30" Margin="0,15" FontWeight="SemiBold"/>
+        <!-- Data -->
+        <!-- From -->
+        <TextBlock Text="From"/>
+        <TextBox x:Name="From_TextBox"/>
+
+        <!-- Until -->
+        <TextBlock Text="Until"/>
+        <TextBox x:Name="Until_TextBox"/>
+
+        <!-- Diagnosis -->
+        <TextBlock Text="Diagnosis"/>
+        <TextBox x:Name="Diagnosis_TextBox"/>
+
+        <!-- Buttons grid -->
+        <Grid Margin="0,30,0,0">
+            <Button x:Name="Add_Button" Content="Add" Click="Add_Button_Click" Grid.Column="0"/>
+            <Button x:Name="Cancel_Button" Content="Cancel" Click="Cancel_Button_Click" Grid.Column="2"/>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <!-- Stack panel style -->
+        <StackPanel.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0,0,0,10"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="MinHeight" Value="40"/>
+            </Style>
+        </StackPanel.Resources>
+
+    </StackPanel>
+
+</Window>

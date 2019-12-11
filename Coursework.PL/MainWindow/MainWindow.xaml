@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Coursework.PL"
         mc:Ignorable="d"
         Title="Hospital" MinHeight="450" MinWidth="800">
+    
     <Grid Margin="2">
 
         <Frame Grid.Row="1" Grid.Column="1" x:Name="Main_Frame" Margin="5"/>

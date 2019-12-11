@@ -9,9 +9,23 @@
       Title="PatientsPage">
 
     <Grid>
+        
+        <!-- Search bar -->
+        <Grid>
+            <TextBox x:Name="FirstName_TextBox" Text="First Name" Margin="10,0" Grid.Column="0"/>
+            <TextBox x:Name="LastName_TextBox" Text="Last Name" Margin="10,0" Grid.Column="1"/>
+            <Button x:Name="Search_Button" Click="Search_Button_Click" Content="Search" Margin="10,0" Grid.Column="2"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        
+        <!-- Data grid -->
         <DataGrid x:Name="Patients_DataGrid" AutoGenerateColumns="False" IsReadOnly="True" 
                   SelectedCellsChanged="Patients_DataGrid_SelectedCellsChanged" SelectionMode="Single"
-                  BorderBrush="AliceBlue">
+                  Grid.Row="1">
             
             <!-- Column definitions -->
             <DataGrid.Columns>
@@ -22,6 +36,13 @@
                
             </DataGrid.Columns>
         </DataGrid>
+        
+        
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
     </Grid>
 
     <!-- Right mouse click context menu-->
@@ -30,6 +51,8 @@
             <MenuItem Header="Add a patient" Click="AddPatient_ContextMenu_Click"/>
             <MenuItem Header="Edit patient" Click="EditPatient_ContextMenu_Click"/>
             <MenuItem Header="Remove patient" Click="RemovePatient_ContextMenu_Click"/>
+            <MenuItem Header="Show medical records" Click="ShowMedicalRecords_ContextMenu_Click"/>
+            <MenuItem Header="Refresh table" Click="RefreshPatients_ContextMenu_Click"/>
         </ContextMenu>
     </Page.ContextMenu>
 </Page>

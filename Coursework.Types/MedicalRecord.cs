@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Coursework.Types
 {
-    public class MedicalRecord
+    public class MedicalRecord : IEquatable<MedicalRecord>
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         public Patient Patient { get; set; }
@@ -25,17 +27,13 @@ namespace Coursework.Types
             Diagnosis = diagnosis;
         }
 
-        public override bool Equals(object obj)
+
+        public bool Equals([AllowNull] MedicalRecord other)
         {
-            if (obj == null || obj.GetType() != typeof(MedicalRecord))
+            if (other == null || other.GetType() != typeof(MedicalRecord))
                 return false;
 
-            return this.Id == ((MedicalRecord)obj).Id;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Id.GetHashCode();
+            return this.Id == other.Id;
         }
     }
 }

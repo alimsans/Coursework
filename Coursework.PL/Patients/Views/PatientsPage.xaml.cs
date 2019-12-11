@@ -82,5 +82,29 @@ namespace Coursework.PL.Views
 
             await _patientsViewModel.RemovePatientAsync(_patientsViewModel.SelectedPatient);
         }
+        
+        private void ShowMedicalRecords_ContextMenu_Click(object sender, RoutedEventArgs e)
+        {
+            if (_patientsViewModel.SelectedPatient == null)
+                return;
+
+            MedicalRecordsView medicalRecordsView = new MedicalRecordsView(_patientsViewModel.SelectedPatient);
+            medicalRecordsView.ShowDialog();
+        }
+
+        private async void Search_Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) ||
+                string.IsNullOrEmpty(this.LastName_TextBox.Text))
+                return;
+
+            await _patientsViewModel.SearchPatientsByNameAsync
+                (this.FirstName_TextBox.Text, this.LastName_TextBox.Text);
+        }
+
+        private async void RefreshPatients_ContextMenu_Click(object sender, RoutedEventArgs e)
+        {
+            await _patientsViewModel.UpdatePatientsAsync();
+        }
     }
 }

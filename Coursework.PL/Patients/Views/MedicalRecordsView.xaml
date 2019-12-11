@@ -1,0 +1,34 @@
+﻿<Window x:Class="Coursework.PL.Views.Patients.MedicalRecordsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Coursework.PL.Views.Patients"
+        mc:Ignorable="d"
+        Title="MedicalRecordsView" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="MedicalRecords_DataGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                  SelectedCellsChanged="MedicalRecords_DataGrid_SelectedCellsChanged" SelectionMode="Single">
+
+            <!-- Column definitions -->
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" Width="*"/>
+                <DataGridTextColumn Header="From" Binding="{Binding Path=From}" Width="3*"/>
+                <DataGridTextColumn Header="Until" Binding="{Binding Path=Until}" Width="3*"/>
+                <DataGridTextColumn Header="Diagnosis" Binding="{Binding Path=Diagnosis}" Width="10*"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+
+    <!-- Right mouse click context menu-->
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Add a record" Click="AddMedicalRecord_ContextMenu_Click"/>
+            <MenuItem Header="Remove record" Click="RemoveMedicalRecord_ContextMenu_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+
+</Window>
