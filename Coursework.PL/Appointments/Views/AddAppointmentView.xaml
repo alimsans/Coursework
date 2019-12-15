@@ -1,34 +1,32 @@
-﻿<Window x:Class="Coursework.PL.Doctors.Views.EditDoctorView"
+﻿<Window x:Class="Coursework.PL.Appointments.Views.AddAppointmentView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Coursework.PL.Doctors.Views"
+        xmlns:local="clr-namespace:Coursework.PL.Appointments.Views"
         mc:Ignorable="d"
-        Title="EditDoctorView" Height="450" Width="800">
+        Title="AddAppointmentView" Height="450" Width="800">
     
     
     <StackPanel Margin="10">
-        <TextBlock Text="Edit doctor info" FontSize="30" Margin="0,15" FontWeight="SemiBold"/>
+        <TextBlock Text="Add a new appointment" FontSize="30" Margin="0,15" FontWeight="SemiBold"/>
         <!-- Data -->
-        <!-- Id -->
-        <TextBlock Text="Id"/>
-        <TextBox x:Name="Id_TextBlock" IsReadOnly="True"/>
-        <!-- First name -->
-        <TextBlock Text="First name"/>
-        <TextBox x:Name="FirstName_TextBox"/>
+        <!-- Doc id -->
+        <TextBlock Text="Doctor's Id"/>
+        <TextBox x:Name="DoctorId_TextBox"/>
 
-        <!-- Last name -->
-        <TextBlock Text="Last name"/>
-        <TextBox x:Name="LastName_TextBox"/>
-        
-        <!-- Occupation -->
-        <TextBlock Text="Occupation"/>
-        <TextBox x:Name="Occupation_TextBox"/>
+        <!-- Patient id -->
+        <TextBlock Text="Patient's id"/>
+        <TextBox x:Name="PatientId_TextBox"/>
+
+        <!-- DateTime -->
+        <TextBlock Text="Date and time" />
+        <TextBlock Text="Format: yyyy-mm-dd hh:mm"/>
+        <TextBox x:Name="DateTime_TextBox" />
 
         <!-- Buttons grid -->
         <Grid Margin="0,30,0,0">
-            <Button x:Name="Add_Button" Content="Edit" Click="Edit_Button_Click" Grid.Column="0"/>
+            <Button x:Name="Add_Button" Content="Add" Click="Add_Button_Click" Grid.Column="0"/>
             <Button x:Name="Cancel_Button" Content="Cancel" Click="Cancel_Button_Click" Grid.Column="2"/>
 
             <Grid.ColumnDefinitions>
@@ -52,6 +50,6 @@
                 <Setter Property="MinHeight" Value="40"/>
             </Style>
         </StackPanel.Resources>
-    </StackPanel>
 
+    </StackPanel>
 </Window>

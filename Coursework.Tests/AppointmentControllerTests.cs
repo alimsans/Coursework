@@ -48,9 +48,9 @@ namespace Coursework.Tests
         [Fact]
         public void AddAppointment_ShouldThrowArgNull()
         {
-            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(null));
-            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(new Appointment(new Doctor(), null)));
-            Assert.Throws<ArgumentNullException>(() => _controller.AddAppointment(new Appointment(null, new Patient())));
+            Assert.Throws<ArgumentNullException>(() => this._controller.AddAppointment(null));
+            Assert.Throws<ArgumentNullException>(() => this._controller.AddAppointment(new Appointment(new Doctor(), null)));
+            Assert.Throws<ArgumentNullException>(() => this._controller.AddAppointment(new Appointment(null, new Patient())));
         }
 
         [Fact]
@@ -96,13 +96,13 @@ namespace Coursework.Tests
             };
             ICollection<Appointment> actualAppointments = new List<Appointment>();
 
-            Assert.True(_controller.GetAppointments().Count == 0);
+            Assert.True(this._controller.GetAppointments().Count == 0);
             foreach (var appointment in expAppointments)
             {
-                _controller.AddAppointment(appointment);
+                this._controller.AddAppointment(appointment);
             }
 
-            actualAppointments = _controller.GetAppointments();
+            actualAppointments = this._controller.GetAppointments();
 
             Assert.True(expAppointments.SequenceEqual(actualAppointments));
         }
@@ -116,13 +116,13 @@ namespace Coursework.Tests
             Doctor newDoctor = new Doctor("Foo", "Doc new", "Numb altered");
             Patient newPatient = new Patient("Foo", "Patient new");
 
-            _controller.AddAppointment(oldAppointment);
-            Assert.Equal(oldAppointment, _controller.GetAppointment(oldAppointment.Id));
+            this._controller.AddAppointment(oldAppointment);
+            Assert.Equal(oldAppointment, this._controller.GetAppointment(oldAppointment.Id));
 
             Appointment newAppointment = new Appointment(newDoctor, newPatient) { Id = oldAppointment.Id };
-            _controller.AlterAppointment(oldAppointment, newAppointment);
+            this._controller.AlterAppointment(oldAppointment, newAppointment);
 
-            Assert.Equal(newAppointment, _controller.GetAppointment(oldAppointment.Id));
+            Assert.Equal(newAppointment, this._controller.GetAppointment(oldAppointment.Id));
         }
 
         [Fact]
@@ -140,10 +140,10 @@ namespace Coursework.Tests
 
             foreach (var appointment in appointments)
             {
-                _controller.AddAppointment(appointment);
+                this._controller.AddAppointment(appointment);
             }
 
-            List<Appointment> actual = (List<Appointment>)_controller.GetAppointments(DateTime.Parse("2019-11-11"));
+            List<Appointment> actual = (List<Appointment>)this._controller.GetAppointments(DateTime.Parse("2019-11-11"));
 
             Assert.Equal(appointments[1], actual[0]);
             Assert.Equal(appointments[2], actual[1]);

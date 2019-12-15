@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 
 namespace Coursework.Types
@@ -44,7 +43,7 @@ namespace Coursework.Types
 
         public bool Equals([AllowNull] Appointment other)
         {
-            if (other == null || other.GetType() != typeof(Appointment))
+            if (other == null)
                 return false;
 
             return this.Id == other.Id;

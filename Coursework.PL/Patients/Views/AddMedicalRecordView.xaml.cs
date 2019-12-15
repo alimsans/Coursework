@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Coursework.PL.Patients.Views
 {
@@ -23,23 +14,23 @@ namespace Coursework.PL.Patients.Views
         internal bool IsConfirmedToAdd;
         public AddMedicalRecordView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            if (string.IsNullOrEmpty(this.Diagnosis_TextBox.Text)) 
+            if (string.IsNullOrEmpty(this.Diagnosis_TextBox.Text))
             {
                 MessageBox.Show("Diagnosis cannot be empty");
                 return;
             }
-            if (!DateTime.TryParse(this.From_TextBox.Text, out From)) 
+            if (!DateTime.TryParse(this.From_TextBox.Text, out this.From))
             {
                 MessageBox.Show("Wrong date format in \"From\"");
                 return;
             }
-            if (!DateTime.TryParse(this.Until_TextBox.Text, out Until)) 
+            if (!DateTime.TryParse(this.Until_TextBox.Text, out this.Until))
             {
                 MessageBox.Show("Wrong date format in \"Until\"");
                 return;

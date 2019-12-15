@@ -34,7 +34,7 @@ namespace Coursework.Types
 
         public bool Equals([AllowNull] Patient other)
         {
-            if (other == null || other.GetType() != typeof(Patient))
+            if (other == null)
                 return false;
 
             return this.Id == other.Id;

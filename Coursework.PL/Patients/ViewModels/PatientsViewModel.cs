@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Coursework.BLL;
+﻿using Coursework.BLL;
 using Coursework.Types;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Coursework.PL.ViewModels
 {
@@ -14,14 +12,14 @@ namespace Coursework.PL.ViewModels
     {
         private PatientController _controller;
         private ObservableCollection<Patient> _patients;
-        internal ObservableCollection<Patient> Patients { get => _patients; }
+        internal ObservableCollection<Patient> Patients { get => this._patients; }
 
         internal Patient SelectedPatient { get; set; }
 
         internal PatientsViewModel()
         {
-            _patients = new ObservableCollection<Patient>();
-            _patients.CollectionChanged += Patients_CollectionChanged;
+            this._patients = new ObservableCollection<Patient>();
+            this._patients.CollectionChanged += this.Patients_CollectionChanged;
         }
 
 
@@ -31,17 +29,17 @@ namespace Coursework.PL.ViewModels
         internal async Task UpdatePatientsAsync()
         {
             List<Patient> patients = null;
-            using (_controller = new PatientController()) 
-                await Task.Run(() => patients = (List<Patient>)_controller.GetPatients());
+            using (this._controller = new PatientController())
+                await Task.Run(() => patients = (List<Patient>)this._controller.GetPatients());
 
             if (patients != null)
             {
-                lock (_patients)
+                lock (this._patients)
                 {
-                    _patients.Clear();
+                    this._patients.Clear();
                     foreach (var patient in patients)
                     {
-                        _patients.Add(patient);
+                        this._patients.Add(patient);
                     }
                 }
             }
@@ -52,8 +50,8 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task AddPatientAsync(Patient patient)
         {
-            using(_controller = new PatientController())
-                await Task.Run(() => _controller.AddPatient(patient));
+            using (this._controller = new PatientController())
+                await Task.Run(() => this._controller.AddPatient(patient));
 
             await this.UpdatePatientsAsync();
         }
@@ -65,8 +63,8 @@ namespace Coursework.PL.ViewModels
         /// <param name="newPatient">new patient to replace the old one</param>
         internal async Task EditPatientAsync(Patient oldPatient, Patient newPatient)
         {
-            using (_controller = new PatientController())
-                await Task.Run(() => _controller.AlterPatientInfo(SelectedPatient, newPatient));
+            using (this._controller = new PatientController())
+                await Task.Run(() => this._controller.AlterPatientInfo(this.SelectedPatient, newPatient));
 
             await this.UpdatePatientsAsync();
         }
@@ -77,8 +75,8 @@ namespace Coursework.PL.ViewModels
         /// <param name="patient">patient to be removed</param>
         internal async Task RemovePatientAsync(Patient patient)
         {
-            using (_controller = new PatientController())
-                await Task.Run(() => _controller.RemovePatient(patient));
+            using (this._controller = new PatientController())
+                await Task.Run(() => this._controller.RemovePatient(patient));
 
             await this.UpdatePatientsAsync();
         }
@@ -86,18 +84,18 @@ namespace Coursework.PL.ViewModels
         internal async Task SearchPatientsByNameAsync(string firstName, string secondName)
         {
             List<Patient> searchResult = null;
-            using (_controller = new PatientController())
-                await Task.Run(() => searchResult = (List<Patient>)_controller.GetPatientsByName(firstName, secondName));
+            using (this._controller = new PatientController())
+                await Task.Run(() => searchResult = (List<Patient>)this._controller.GetPatientsByName(firstName, secondName));
 
-            if (searchResult != null) 
+            if (searchResult != null)
             {
-                lock (_patients)
+                lock (this._patients)
                 {
-                    _patients.Clear();
+                    this._patients.Clear();
 
                     foreach (Patient patient in searchResult)
                     {
-                        _patients.Add(patient);
+                        this._patients.Add(patient);
                     }
                 }
             }
@@ -106,8 +104,8 @@ namespace Coursework.PL.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void Patients_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if(_patients != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Patients)));
+            if (this._patients != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Patients)));
         }
     }
 }

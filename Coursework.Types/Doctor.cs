@@ -32,22 +32,22 @@ namespace Coursework.Types
 
         public Doctor(string firstName, string lastName, string occupation, ICollection<WorkDay> workDays)
         {
-            this.FirstName  = firstName;
-            this.LastName   = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
             this.Occupation = occupation;
-            this.WorkDays   = workDays;
+            this.WorkDays = workDays;
         }
 
         public void Copy(Doctor other)
         {
-            this.FirstName  = other.FirstName;
-            this.LastName   = other.LastName;
+            this.FirstName = other.FirstName;
+            this.LastName = other.LastName;
             this.Occupation = other.Occupation;
         }
 
         public bool Equals([AllowNull] Doctor other)
         {
-            if (other == null || other.GetType() != typeof(Doctor))
+            if (other == null)
                 return false;
 
             return this.Id == other.Id;

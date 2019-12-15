@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Coursework.BLL
 {
@@ -34,8 +33,8 @@ namespace Coursework.BLL
 
             Patient tmpPatient = record.Patient;
             record.Patient = null;
-            _context.MedicalRecords.Add(record).Entity.Patient = tmpPatient;
-            _context.SaveChanges();
+            this._context.MedicalRecords.Add(record).Entity.Patient = tmpPatient;
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -47,8 +46,8 @@ namespace Coursework.BLL
         {
             if (record == null) throw new ArgumentNullException(nameof(record));
 
-            _context.MedicalRecords.Remove(record);
-            _context.SaveChanges();
+            this._context.MedicalRecords.Remove(record);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace Coursework.BLL
         {
             if (patient == null) throw new ArgumentNullException(nameof(patient));
 
-            return _context.MedicalRecords
+            return this._context.MedicalRecords
                 .Include(p => p.Patient)
                 .AsNoTracking()
                 .Where(m => m.Patient == patient)
@@ -78,7 +77,7 @@ namespace Coursework.BLL
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            return _context.MedicalRecords
+            return this._context.MedicalRecords
                 .Include(p => p.Patient)
                 .AsNoTracking()
                 .Where(m => m.Id == id)

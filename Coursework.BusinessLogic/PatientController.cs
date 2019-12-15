@@ -31,8 +31,8 @@ namespace Coursework.BLL
         /// <returns>Id of the added patient</returns>
         public int AddPatient(Patient patient)
         {
-            int id = _context.Patients.Add(patient).Entity.Id;
-            _context.SaveChanges();
+            int id = this._context.Patients.Add(patient).Entity.Id;
+            this._context.SaveChanges();
 
             return id;
         }
@@ -44,7 +44,7 @@ namespace Coursework.BLL
         /// <returns>Patient from the db. NULL if not found</returns>
         public Patient GetPatient(int id)
         {
-            return _context.Patients
+            return this._context.Patients
                 .Include(p => p.Appointments)
                 .Include(r => r.MedicalRecords)
                 .AsNoTracking()
@@ -58,7 +58,7 @@ namespace Coursework.BLL
         /// <returns>Patients from the db. NULL if not found.</returns>
         public ICollection<Patient> GetPatients()
         {
-            return _context.Patients
+            return this._context.Patients
                 .Include(p => p.Appointments)
                 .Include(r => r.MedicalRecords)
                 .AsNoTracking()
@@ -73,7 +73,7 @@ namespace Coursework.BLL
         /// <returns>Patients from the db. NULL if not found.</returns>
         public ICollection<Patient> GetPatientsByName(string firstName, string lastName)
         {
-            return _context.Patients
+            return this._context.Patients
                 .Include(p => p.Appointments)
                 .Include(r => r.MedicalRecords)
                 .AsNoTracking()
@@ -88,8 +88,8 @@ namespace Coursework.BLL
         /// <exception cref="DbUpdateConcurrencyException">Patient was not found</exception>
         public void RemovePatient(Patient patient)
         {
-            _context.Remove(patient);
-            _context.SaveChanges();
+            this._context.Remove(patient);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace Coursework.BLL
             if (oldPatient == null) throw new ArgumentNullException(nameof(oldPatient));
 
             oldPatient.Copy(newPatient);
-            _context.Patients.Update(oldPatient);
-            _context.SaveChanges();
+            this._context.Patients.Update(oldPatient);
+            this._context.SaveChanges();
         }
     }
 }

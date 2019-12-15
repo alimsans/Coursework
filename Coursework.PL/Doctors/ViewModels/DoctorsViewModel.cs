@@ -1,11 +1,9 @@
 ﻿using Coursework.BLL;
 using Coursework.Types;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Coursework.PL.Doctors.ViewModels
@@ -15,31 +13,29 @@ namespace Coursework.PL.Doctors.ViewModels
         private DoctorController _controller;
         private ObservableCollection<Doctor> _doctors;
 
-
-        internal ObservableCollection<Doctor> Doctors { get => _doctors; }
-
+        internal ObservableCollection<Doctor> Doctors { get => this._doctors; }
         internal Doctor SelectedDoctor { get; set; }
 
         internal DoctorsViewModel()
         {
-            _doctors = new ObservableCollection<Doctor>();
-            _doctors.CollectionChanged += Doctors_CollectionChanged;
+            this._doctors = new ObservableCollection<Doctor>();
+            this._doctors.CollectionChanged += this.Doctors_CollectionChanged;
         }
 
         internal async Task UpdateDoctorsAsync()
         {
             List<Doctor> doctors = null;
-            using (_controller = new DoctorController())
-                await Task.Run(() => doctors = (List<Doctor>)_controller.GetDoctors());
+            using (this._controller = new DoctorController())
+                await Task.Run(() => doctors = (List<Doctor>)this._controller.GetDoctors());
 
             if (doctors != null)
             {
-                lock (_doctors)
+                lock (this._doctors)
                 {
-                    _doctors.Clear();
+                    this._doctors.Clear();
                     foreach (var doctor in doctors)
                     {
-                        _doctors.Add(doctor);
+                        this._doctors.Add(doctor);
                     }
                 }
             }
@@ -47,24 +43,24 @@ namespace Coursework.PL.Doctors.ViewModels
 
         internal async Task AddDoctorAsync(Doctor doctor)
         {
-            using (_controller = new DoctorController())
-                await Task.Run(() => _controller.AddDoctor(doctor));
+            using (this._controller = new DoctorController())
+                await Task.Run(() => this._controller.AddDoctor(doctor));
 
             await this.UpdateDoctorsAsync();
         }
 
         internal async Task EditDoctorAsync(Doctor oldPatient, Doctor newDoctor)
         {
-            using (_controller = new DoctorController())
-                await Task.Run(() => _controller.AlterDoctorInfo(SelectedDoctor, newDoctor));
+            using (this._controller = new DoctorController())
+                await Task.Run(() => this._controller.AlterDoctorInfo(this.SelectedDoctor, newDoctor));
 
             await this.UpdateDoctorsAsync();
         }
 
         internal async Task RemoveDoctorAsync(Doctor doctor)
         {
-            using (_controller = new DoctorController())
-                await Task.Run(() => _controller.RemoveDoctor(doctor));
+            using (this._controller = new DoctorController())
+                await Task.Run(() => this._controller.RemoveDoctor(doctor));
 
             await this.UpdateDoctorsAsync();
         }
@@ -72,18 +68,18 @@ namespace Coursework.PL.Doctors.ViewModels
         internal async Task SearchDoctorsByNameAsync(string firstName, string lastName)
         {
             List<Doctor> searchResult = null;
-            using (_controller = new DoctorController())
-                await Task.Run(() => searchResult = (List<Doctor>)_controller.GetDoctorsByName(firstName, lastName));
+            using (this._controller = new DoctorController())
+                await Task.Run(() => searchResult = (List<Doctor>)this._controller.GetDoctorsByName(firstName, lastName));
 
             if (searchResult != null)
             {
-                lock (_doctors)
+                lock (this._doctors)
                 {
-                    _doctors.Clear();
+                    this._doctors.Clear();
 
                     foreach (Doctor doctor in searchResult)
                     {
-                        _doctors.Add(doctor);
+                        this._doctors.Add(doctor);
                     }
                 }
             }
@@ -93,8 +89,8 @@ namespace Coursework.PL.Doctors.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void Doctors_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_doctors != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Doctors)));
+            if (this._doctors != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.Doctors)));
         }
     }
 }

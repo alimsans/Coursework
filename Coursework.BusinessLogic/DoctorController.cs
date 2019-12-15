@@ -33,8 +33,8 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            _context.Doctors.Add(doctor);
-            _context.SaveChanges();
+            this._context.Doctors.Add(doctor);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Coursework.BLL
         /// <returns>Doctor from the db. NULL if not found</returns>
         public Doctor GetDoctor(int id)
         {
-            return _context.Doctors
+            return this._context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -58,7 +58,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctors()
         {
-            return _context.Doctors
+            return this._context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -73,7 +73,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctorsByName(string firstName, string lastName)
         {
-            return _context.Doctors
+            return this._context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -88,7 +88,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if no doctor with specified occupation.</returns>
         public ICollection<Doctor> GetDoctorsByOccupation(string occupation)
         {
-            return _context.Doctors
+            return this._context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -100,11 +100,10 @@ namespace Coursework.BLL
         /// Removes a doctor from the db
         /// </summary>
         /// <param name="id">doctor's id</param>
-        /// <exception cref="DbUpdateConcurrencyException">Doctor was not found</exception>
         public void RemoveDoctor(Doctor doctor)
         {
-            _context.Doctors.Remove(doctor);
-            _context.SaveChanges();
+            this._context.Doctors.Remove(doctor);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -120,8 +119,8 @@ namespace Coursework.BLL
             if (oldDoctor == null) throw new ArgumentNullException(nameof(oldDoctor));
 
             oldDoctor.Copy(newDoctor);
-            _context.Doctors.Update(oldDoctor);
-            _context.SaveChanges();
+            this._context.Doctors.Update(oldDoctor);
+            this._context.SaveChanges();
         }
     }
 }

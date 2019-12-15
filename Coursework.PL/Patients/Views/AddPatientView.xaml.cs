@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Coursework.PL.Views.Patients
 {
@@ -21,19 +11,19 @@ namespace Coursework.PL.Views.Patients
 
         public AddPatientView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) 
+            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text)
                 || string.IsNullOrEmpty(this.LastName_TextBox.Text))
             {
                 MessageBox.Show("Name cannot be empty.");
                 return;
             }
 
-            IsConfirmedToAdd = true;
+            this.IsConfirmedToAdd = true;
             this.Close();
         }
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

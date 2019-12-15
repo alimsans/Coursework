@@ -1,17 +1,7 @@
 ﻿using Coursework.PL.Doctors.ViewModels;
 using Coursework.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Coursework.PL.Doctors.Views
 {
@@ -20,15 +10,14 @@ namespace Coursework.PL.Doctors.Views
     /// </summary>
     public partial class DoctorsPage : Page
     {
-        DoctorsViewModel _doctorsViewModel;
+        private DoctorsViewModel _doctorsViewModel;
         public DoctorsPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            _doctorsViewModel = new DoctorsViewModel();
-            Doctors_DataGrid.ItemsSource = _doctorsViewModel.Doctors;
-            _doctorsViewModel.UpdateDoctorsAsync().ConfigureAwait(false);
-
+            this._doctorsViewModel = new DoctorsViewModel();
+            this.Doctors_DataGrid.ItemsSource = this._doctorsViewModel.Doctors;
+            this._doctorsViewModel.UpdateDoctorsAsync().ConfigureAwait(false);
         }
 
         private async void AddDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
@@ -44,37 +33,40 @@ namespace Coursework.PL.Doctors.Views
                 addDoctorView.LastName_TextBox.Text,
                 addDoctorView.Occupation_TextBox.Text);
 
-            await _doctorsViewModel.AddDoctorAsync(doctor);
+            await this._doctorsViewModel.AddDoctorAsync(doctor);
         }
+
         private void Doctors_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            _doctorsViewModel.SelectedDoctor = dataGrid.SelectedItem as Doctor;
+            this._doctorsViewModel.SelectedDoctor = dataGrid.SelectedItem as Doctor;
         }
 
         private async void EditDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (_doctorsViewModel.SelectedDoctor == null)
+            if (this._doctorsViewModel.SelectedDoctor == null)
                 return;
 
-            EditDoctorView editDoctorView = new EditDoctorView(_doctorsViewModel.SelectedDoctor);
+            EditDoctorView editDoctorView = new EditDoctorView(this._doctorsViewModel.SelectedDoctor);
             editDoctorView.ShowDialog();
 
             if (!editDoctorView.IsEdited)
                 return;
 
-            await _doctorsViewModel.EditDoctorAsync(_doctorsViewModel.SelectedDoctor, editDoctorView.NewDoctor);
+            await this._doctorsViewModel.EditDoctorAsync(this._doctorsViewModel.SelectedDoctor, editDoctorView.NewDoctor);
         }
+
         private async void RemoveDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (_doctorsViewModel.SelectedDoctor == null)
+            if (this._doctorsViewModel.SelectedDoctor == null)
                 return;
 
-            await _doctorsViewModel.RemoveDoctorAsync(_doctorsViewModel.SelectedDoctor);
+            await this._doctorsViewModel.RemoveDoctorAsync(this._doctorsViewModel.SelectedDoctor);
         }
+
         private async void RefreshDoctors_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            await _doctorsViewModel.UpdateDoctorsAsync();
+            await this._doctorsViewModel.UpdateDoctorsAsync();
         }
 
         private async void Search_Button_Click(object sender, RoutedEventArgs e)
@@ -83,10 +75,8 @@ namespace Coursework.PL.Doctors.Views
                 string.IsNullOrEmpty(this.LastName_TextBox.Text))
                 return;
 
-            await _doctorsViewModel.SearchDoctorsByNameAsync
+            await this._doctorsViewModel.SearchDoctorsByNameAsync
                 (this.FirstName_TextBox.Text, this.LastName_TextBox.Text);
         }
-
-
     }
 }

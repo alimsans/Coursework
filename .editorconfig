@@ -1,5 +1,5 @@
 [*]
-end_of_line = crlf
+end_of_line = lf
 
 [*.xml]
 indent_style = space
@@ -13,4 +13,4 @@ dotnet_style_qualification_for_property = true:silent
 dotnet_style_qualification_for_event = true:silent
 
 # IDE0058: Expression value is never used
-csharp_style_unused_value_expression_statement_preference = discard_variable:silent
+#csharp_style_unused_value_expression_statement_preference = discard_variable:silent

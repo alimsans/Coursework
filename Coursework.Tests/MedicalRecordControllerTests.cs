@@ -4,7 +4,6 @@ using Coursework.Types;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Coursework.Tests
@@ -36,9 +35,9 @@ namespace Coursework.Tests
             Patient patient = new Patient("Foo", "Numb");
             MedicalRecord expected = new MedicalRecord(patient, DateTime.Parse("2019-01-01"), DateTime.Now, "Cancer");
 
-            _controller.AddMedicalRecord(expected);
+            this._controller.AddMedicalRecord(expected);
 
-            var actual = (List<MedicalRecord>)_controller.GetPatientsMedicalRecords(patient);
+            var actual = (List<MedicalRecord>)this._controller.GetPatientsMedicalRecords(patient);
 
             Assert.Contains(expected, actual);
         }
@@ -46,7 +45,7 @@ namespace Coursework.Tests
         [Fact]
         public void AddMedicalRecord_ShouldThrowArgNull()
         {
-            Assert.Throws<ArgumentNullException>(() => _controller.AddMedicalRecord(null));
+            Assert.Throws<ArgumentNullException>(() => this._controller.AddMedicalRecord(null));
         }
 
         [Fact]

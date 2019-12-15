@@ -21,16 +21,16 @@ namespace Coursework.Types
 
         public MedicalRecord(Patient patient, DateTime from, DateTime until, string diagnosis)
         {
-            Patient = patient;
-            From = from;
-            Until = until;
-            Diagnosis = diagnosis;
+            this.Patient = patient;
+            this.From = from;
+            this.Until = until;
+            this.Diagnosis = diagnosis;
         }
 
 
         public bool Equals([AllowNull] MedicalRecord other)
         {
-            if (other == null || other.GetType() != typeof(MedicalRecord))
+            if (other == null)
                 return false;
 
             return this.Id == other.Id;

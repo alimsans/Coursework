@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
-using System.Text;
 
 namespace Coursework.Types
 {
     public enum Day { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
     public class WorkDay
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         public Day Day { get; set; }
@@ -19,27 +20,30 @@ namespace Coursework.Types
         public WorkDay()
         {
         }
-            
+
         public WorkDay(Day day, DateTime from, DateTime until)
         {
-            this.Day   = day;
-            this.From  = from;
+            if (from > until)
+                throw new ArgumentException(nameof(from) + " time cannot later than " + nameof(until));
+
+            this.Day = day;
+            this.From = from;
             this.Until = until;
         }
 
         public WorkDay GetDefaultWorkDay(Day day)
         {
-            CultureInfo format = new CultureInfo("ru-RU"); 
+            CultureInfo format = new CultureInfo("ru-RU");
             return new WorkDay
-                (day, DateTime.ParseExact("08:00:00", "HH:mm:ss", format ), DateTime.ParseExact("16:00:00", "HH:mm:ss", format));
+                (day, DateTime.ParseExact("08:00:00", "HH:mm:ss", format), DateTime.ParseExact("16:00:00", "HH:mm:ss", format));
         }
 
         public ICollection<WorkDay> GetDefaultWorkWeek()
         {
-            ICollection<Day> days = new List<Day>(7) 
+            ICollection<Day> days = new List<Day>(7)
                 { Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday, Day.Sunday };
 
-            ICollection<WorkDay> workDays = new List<WorkDay>(7); 
+            ICollection<WorkDay> workDays = new List<WorkDay>(7);
 
             foreach (Day day in days)
             {

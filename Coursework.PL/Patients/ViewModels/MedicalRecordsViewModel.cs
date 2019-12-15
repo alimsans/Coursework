@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Collections.Specialized;
-
+﻿using Coursework.BLL;
 using Coursework.Types;
-using Coursework.BLL;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace Coursework.PL.ViewModels
@@ -15,16 +12,16 @@ namespace Coursework.PL.ViewModels
     {
         private MedicalRecordsController _controller;
         private ObservableCollection<MedicalRecord> _medicalRecords;
-        internal ObservableCollection<MedicalRecord> MedicalRecords { get => _medicalRecords; }
+        internal ObservableCollection<MedicalRecord> MedicalRecords { get => this._medicalRecords; }
 
         internal Patient SelectedPatient { get; set; }
         internal MedicalRecord SelectedMedicalRecord { get; set; }
 
         internal MedicalRecordsViewModel(Patient patient)
         {
-            SelectedPatient = patient;
-            _medicalRecords = new ObservableCollection<MedicalRecord>();
-            _medicalRecords.CollectionChanged += MedicalRecords_CollectionChanged;
+            this.SelectedPatient = patient;
+            this._medicalRecords = new ObservableCollection<MedicalRecord>();
+            this._medicalRecords.CollectionChanged += this.MedicalRecords_CollectionChanged;
         }
 
         /// <summary>
@@ -33,18 +30,18 @@ namespace Coursework.PL.ViewModels
         internal async Task UpdateMedicalRecordsAsync()
         {
             List<MedicalRecord> medicalRecords = null;
-            using (_controller = new MedicalRecordsController())
+            using (this._controller = new MedicalRecordsController())
                 await Task.Run(
-                    () => medicalRecords = (List<MedicalRecord>)_controller.GetPatientsMedicalRecords(SelectedPatient));
+                    () => medicalRecords = (List<MedicalRecord>)this._controller.GetPatientsMedicalRecords(this.SelectedPatient));
 
             if (medicalRecords != null)
             {
-                lock (_medicalRecords)
+                lock (this._medicalRecords)
                 {
-                    _medicalRecords.Clear();
+                    this._medicalRecords.Clear();
                     foreach (var record in medicalRecords)
                     {
-                        _medicalRecords.Add(record);
+                        this._medicalRecords.Add(record);
                     }
                 }
             }
@@ -55,8 +52,8 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task AddMedicalRecordAsync(MedicalRecord record)
         {
-            using (_controller = new MedicalRecordsController())
-                await Task.Run(() => _controller.AddMedicalRecord(record));
+            using (this._controller = new MedicalRecordsController())
+                await Task.Run(() => this._controller.AddMedicalRecord(record));
 
             await this.UpdateMedicalRecordsAsync();
         }
@@ -66,8 +63,8 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task RemoveMedicalRecordAsync(MedicalRecord record)
         {
-            using (_controller = new MedicalRecordsController())
-                await Task.Run(() => _controller.RemoveMedicalRecord(record));
+            using (this._controller = new MedicalRecordsController())
+                await Task.Run(() => this._controller.RemoveMedicalRecord(record));
 
             await this.UpdateMedicalRecordsAsync();
         }
@@ -76,8 +73,8 @@ namespace Coursework.PL.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void MedicalRecords_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (_medicalRecords != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MedicalRecords)));
+            if (this._medicalRecords != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.MedicalRecords)));
         }
     }
 }

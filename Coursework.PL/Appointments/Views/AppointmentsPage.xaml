@@ -1,0 +1,50 @@
+﻿<Page x:Class="Coursework.PL.Appointments.Views.AppointmentsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Coursework.PL.Appointments.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AppointmentsPage">
+
+    <Grid>
+        <!-- Data grid -->
+        <DataGrid x:Name="Appointments_DataGrid" AutoGenerateColumns="False" IsReadOnly="True" 
+                  SelectedCellsChanged="Appointments_DataGrid_SelectedCellsChanged" SelectionMode="Single"
+                  Grid.Row="1">
+
+            <!-- Column definitions -->
+            <DataGrid.Columns>
+                
+                <!-- Doctor -->
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=DoctorId}" Width="*"/>
+                <DataGridTextColumn Header="Doctor's first name" Binding="{Binding Path=DoctorFirstName}" Width="10*"/>
+                <DataGridTextColumn Header="Doctor's last name" Binding="{Binding Path=DoctorLastName}" Width="10*"/>
+                <DataGridTextColumn Header="Occupation" Binding="{Binding Path=DoctorOccupation}" Width="15*"/>
+                <!-- Patient -->
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=PatientId}" Width="*"/>
+                <DataGridTextColumn Header="Patient's first name" Binding="{Binding Path=PatientFirstName}" Width="10*"/>
+                <DataGridTextColumn Header="Patient's last name" Binding="{Binding Path=PatientLastName}" Width="10*"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+    </Grid>
+
+    <!-- Right mouse click context menu-->
+    <Page.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Add an appointment" Click="AddAppointment_ContextMenu_Click"/>
+            <MenuItem Header="Edit appointment" Click="EditAppointment_ContextMenu_Click"/>
+            <MenuItem Header="Remove appointment" Click="RemoveAppointment_ContextMenu_Click"/>
+            <MenuItem Header="Refresh table" Click="RefreshAppointments_ContextMenu_Click"/>
+        </ContextMenu>
+    </Page.ContextMenu>
+</Page>

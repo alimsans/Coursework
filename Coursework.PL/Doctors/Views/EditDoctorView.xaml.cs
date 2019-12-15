@@ -1,15 +1,5 @@
 ﻿using Coursework.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Coursework.PL.Doctors.Views
 {
@@ -24,18 +14,19 @@ namespace Coursework.PL.Doctors.Views
         public Doctor NewDoctor { get; private set; }
         public EditDoctorView(Doctor oldDoctor)
         {
-            InitializeComponent();
-            _oldDoctor = oldDoctor;
+            this.InitializeComponent();
+            this._oldDoctor = oldDoctor;
             this.Id_TextBlock.Text = oldDoctor.Id.ToString();
             this.FirstName_TextBox.Text = oldDoctor.FirstName;
             this.LastName_TextBox.Text = oldDoctor.LastName;
+            this.Occupation_TextBox.Text = oldDoctor.Occupation;
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (_oldDoctor.FirstName == this.FirstName_TextBox.Text &&
-                _oldDoctor.LastName == this.LastName_TextBox.Text &&
-                _oldDoctor.Occupation == this.Occupation_TextBox.Text)
+            if (this._oldDoctor.FirstName == this.FirstName_TextBox.Text &&
+                this._oldDoctor.LastName == this.LastName_TextBox.Text &&
+                this._oldDoctor.Occupation == this.Occupation_TextBox.Text)
                 this.Close();
 
             if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) || string.IsNullOrEmpty(this.LastName_TextBox.Text))
@@ -44,9 +35,9 @@ namespace Coursework.PL.Doctors.Views
                 return;
             }
 
-            NewDoctor = new Doctor
+            this.NewDoctor = new Doctor
                 (this.FirstName_TextBox.Text, this.LastName_TextBox.Text, this.Occupation_TextBox.Text);
-            IsEdited = true;
+            this.IsEdited = true;
 
             this.Close();
         }

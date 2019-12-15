@@ -32,8 +32,19 @@ namespace Coursework.BLL
             if (appointment.Doctor == null) throw new ArgumentNullException(nameof(appointment.Doctor));
             if (appointment.Patient == null) throw new ArgumentNullException(nameof(appointment.Patient));
 
-            _context.Appointments.Add(appointment);
-            _context.SaveChanges();
+
+            Doctor doctor = appointment.Doctor;
+            Patient patient = appointment.Patient;
+            appointment.Doctor = null;
+            appointment.Patient = null;
+
+            this._context.Appointments.Add(appointment);
+
+            appointment.Doctor = doctor;
+            appointment.Patient = patient;
+
+
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -42,8 +53,8 @@ namespace Coursework.BLL
         /// <param name="appointment"></param>
         public void RemoveAppointment(Appointment appointment)
         {
-            _context.Appointments.Remove(appointment);
-            _context.SaveChanges();
+            this._context.Appointments.Remove(appointment);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -52,7 +63,7 @@ namespace Coursework.BLL
         /// <param name="id">Appointment id</param>
         public Appointment GetAppointment(int id)
         {
-            return _context.Appointments
+            return this._context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .AsNoTracking()
@@ -69,14 +80,14 @@ namespace Coursework.BLL
         /// <exception cref="KeyNotFoundException">Invalid appointment id</exception>
         public void AlterAppointment(Appointment oldAppointment, Appointment newAppointment)
         {
-            if (newAppointment  == null) throw new ArgumentNullException(nameof(newAppointment));
+            if (newAppointment == null) throw new ArgumentNullException(nameof(newAppointment));
             if (newAppointment.Doctor == null) throw new ArgumentNullException(nameof(newAppointment.Doctor));
             if (newAppointment.Patient == null) throw new ArgumentNullException(nameof(newAppointment.Patient));
             if (oldAppointment == null) throw new ArgumentNullException(nameof(oldAppointment));
 
             oldAppointment.Copy(newAppointment);
-            _context.Appointments.Update(oldAppointment);
-            _context.SaveChanges();
+            this._context.Appointments.Update(oldAppointment);
+            this._context.SaveChanges();
         }
 
         /// <summary>
@@ -85,7 +96,10 @@ namespace Coursework.BLL
         /// <returns>Appointments in the db. NULL if no appointments found</returns>
         public ICollection<Appointment> GetAppointments()
         {
-            return _context.Appointments.ToList();
+            return this._context.Appointments
+                .Include(d => d.Doctor)
+                .Include(p => p.Patient)
+                .ToList();
         }
 
         /// <summary>
@@ -97,7 +111,7 @@ namespace Coursework.BLL
         {
             if (from >= until) throw new ArgumentException("Invalid date time");
 
-            return _context.Appointments
+            return this._context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.DateTime >= from && a.DateTime <= until)
@@ -111,7 +125,7 @@ namespace Coursework.BLL
         /// <returns>Matched appointments. NULL if no appointments found.</returns>
         public ICollection<Appointment> GetAppointments(DateTime day)
         {
-            return _context.Appointments
+            return this._context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.DateTime.Date == day.Date)
@@ -129,7 +143,7 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            return _context.Appointments
+            return this._context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.Doctor.Id == doctor.Id)
