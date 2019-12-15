@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Coursework.PL.MainWindow">
+    <Position X="0.5" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAgAAAAAAAAAAAAMAAAIAAAAABAAAAAAA=</HashCode>
+      <FileName>MainWindow\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.ViewModels.PatientsViewModel" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAIAgAAAAAAAAIAAAAAgAAAAAAABAAAAkQBACA=</HashCode>
+      <FileName>Patients\ViewModels\PatientsViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.238" />
+  </Class>
+  <Class Name="Coursework.PL.Patients.Views.AddMedicalRecordView" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAEBAAEAgAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Patients\Views\AddMedicalRecordView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Views.Patients.AddPatientView" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAgAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Patients\Views\AddPatientView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Views.Patients.EditPatientView" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAEAAAAAAAAAAAAAAAAAAACBAAAgAAAAA=</HashCode>
+      <FileName>Patients\Views\EditPatientView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Views.Patients.MedicalRecordsView" BaseTypeListCollapsed="true">
+    <Position X="3.75" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASAIAA=</HashCode>
+      <FileName>Patients\Views\MedicalRecordsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Views.PatientsPage" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="8.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAAABAAIQAAAAAAAAJAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Patients\Views\PatientsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Doctors.ViewModels.DoctorsViewModel" BaseTypeListCollapsed="true">
+    <Position X="19" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAgAAAAAQACAABAgBAAAgAAAgAAAEAAAQA=</HashCode>
+      <FileName>Doctors\ViewModels\DoctorsViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Doctors.Views.AddDoctorView" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAgAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Doctors\Views\AddDoctorView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Doctors.Views.DoctorsPage" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAEQAAAAAAAAAAAAgAIAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Doctors\Views\DoctorsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Doctors.Views.EditDoctorView" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAEAAAAIAAAAAAAAAAAAAACBAAAAAAAAA=</HashCode>
+      <FileName>Doctors\Views\EditDoctorView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Appointments.Models.AppointmentModel">
+    <Position X="30.5" Y="9.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQQABAAAAAAAAAAAAQACQAQBAAAAAAQAAAA=</HashCode>
+      <FileName>Appointments\Models\AppointmentModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coursework.PL.Appointments.ViewModels.AppointmentsViewModel" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="9.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAgAAAAAAAkEAAAAAAAAAAAkAAAIg=</HashCode>
+      <FileName>Appointments\ViewModels\AppointmentsViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Appointments.Views.AddAppointmentView" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="9.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAQAAEAAAAAgQAAAAAAACAAQAAAAgAAAAgAA=</HashCode>
+      <FileName>Appointments\Views\AddAppointmentView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.Appointments.Views.AppointmentsPage" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="10.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAGAAAAAAAIBAAAAAAA=</HashCode>
+      <FileName>Appointments\Views\AppointmentsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.PL.ViewModels.MedicalRecordsViewModel">
+    <Position X="9.75" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAgAAAAAAgAAAAAAAAAAEAAgAAEAQBAAABAAEAAAAA=</HashCode>
+      <FileName>Patients\ViewModels\MedicalRecordsViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

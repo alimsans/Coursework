@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Coursework.Tests.AppointmentControllerTests" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>IAAAEEAAASAQAAAAAAAAIAAAAAAAAAAAAgAAAEAAAAA=</HashCode>
+      <FileName>AppointmentControllerTests.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.Tests.DoctorControllerTests" BaseTypeListCollapsed="true">
+    <Position X="6" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAASAAAAAABAAAAAACIAEEAACAAAAAAEACAAA=</HashCode>
+      <FileName>DoctorControllerTests.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.Tests.MedicalRecordControllerTests" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAASAABAAACAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>MedicalRecordControllerTests.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coursework.Tests.PatientControllerTests" BaseTypeListCollapsed="true">
+    <Position X="6" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAASAAAAAAEAAAAABBAAAAAAAAAAAAAUAACQA=</HashCode>
+      <FileName>PatientControllerTests.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
