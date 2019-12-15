@@ -32,10 +32,10 @@ namespace Coursework.BLL
             if (appointment.Doctor == null) throw new ArgumentNullException(nameof(appointment.Doctor));
             if (appointment.Patient == null) throw new ArgumentNullException(nameof(appointment.Patient));
 
-            this._context.Entry(appointment).State = EntityState.Added;
+            _context.Entry(appointment).State = EntityState.Added;
 
-            this._context.Appointments.Add(appointment);
-            this._context.SaveChanges();
+            _context.Appointments.Add(appointment);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Coursework.BLL
         /// <param name="appointment"></param>
         public void RemoveAppointment(Appointment appointment)
         {
-            this._context.Appointments.Remove(appointment);
-            this._context.SaveChanges();
+            _context.Appointments.Remove(appointment);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Coursework.BLL
         /// <param name="id">Appointment id</param>
         public Appointment GetAppointment(int id)
         {
-            return this._context.Appointments
+            return _context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .AsNoTracking()
@@ -77,8 +77,8 @@ namespace Coursework.BLL
             if (oldAppointment == null) throw new ArgumentNullException(nameof(oldAppointment));
 
             oldAppointment.Copy(newAppointment);
-            this._context.Appointments.Update(oldAppointment);
-            this._context.SaveChanges();
+            _context.Appointments.Update(oldAppointment);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Coursework.BLL
         /// <returns>Appointments in the db. NULL if no appointments found</returns>
         public ICollection<Appointment> GetAppointments()
         {
-            return this._context.Appointments
+            return _context.Appointments
                 .Include(d => d.Doctor)
                 .Include(p => p.Patient)
                 .ToList();
@@ -102,7 +102,7 @@ namespace Coursework.BLL
         {
             if (from >= until) throw new ArgumentException("Invalid date time");
 
-            return this._context.Appointments
+            return _context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.DateTime >= from && a.DateTime <= until)
@@ -116,7 +116,7 @@ namespace Coursework.BLL
         /// <returns>Matched appointments. NULL if no appointments found.</returns>
         public ICollection<Appointment> GetAppointments(DateTime day)
         {
-            return this._context.Appointments
+            return _context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.DateTime.Date == day.Date)
@@ -134,7 +134,7 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            return this._context.Appointments
+            return _context.Appointments
                 .Include(p => p.Patient)
                 .Include(d => d.Doctor)
                 .Where(a => a.Doctor.Id == doctor.Id)

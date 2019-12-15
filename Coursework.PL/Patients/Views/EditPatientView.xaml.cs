@@ -14,33 +14,33 @@ namespace Coursework.PL.Views.Patients
         public Patient NewPatient { get; private set; }
         public EditPatientView(Patient oldPatient)
         {
-            this.InitializeComponent();
-            this._oldPatient = oldPatient;
-            this.Id_TextBlock.Text = oldPatient.Id.ToString();
-            this.FirstName_TextBox.Text = oldPatient.FirstName;
-            this.LastName_TextBox.Text = oldPatient.LastName;
+            InitializeComponent();
+            _oldPatient = oldPatient;
+            Id_TextBlock.Text = oldPatient.Id.ToString();
+            FirstName_TextBox.Text = oldPatient.FirstName;
+            LastName_TextBox.Text = oldPatient.LastName;
         }
 
         private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (this._oldPatient.FirstName == this.FirstName_TextBox.Text && this._oldPatient.LastName == this.LastName_TextBox.Text)
-                this.Close();
+            if (_oldPatient.FirstName == FirstName_TextBox.Text && _oldPatient.LastName == LastName_TextBox.Text)
+                Close();
 
-            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) || string.IsNullOrEmpty(this.LastName_TextBox.Text))
+            if (string.IsNullOrEmpty(FirstName_TextBox.Text) || string.IsNullOrEmpty(LastName_TextBox.Text))
             {
                 MessageBox.Show("Name cannot be empty.");
                 return;
             }
 
-            this.NewPatient = new Patient(this.FirstName_TextBox.Text, this.LastName_TextBox.Text);
-            this.IsEdited = true;
+            NewPatient = new Patient(FirstName_TextBox.Text, LastName_TextBox.Text);
+            IsEdited = true;
 
-            this.Close();
+            Close();
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
     }

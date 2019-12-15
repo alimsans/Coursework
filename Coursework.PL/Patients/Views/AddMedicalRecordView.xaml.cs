@@ -14,37 +14,37 @@ namespace Coursework.PL.Patients.Views
         internal bool IsConfirmedToAdd;
         public AddMedicalRecordView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
 
-            if (string.IsNullOrEmpty(this.Diagnosis_TextBox.Text))
+            if (string.IsNullOrEmpty(Diagnosis_TextBox.Text))
             {
                 MessageBox.Show("Diagnosis cannot be empty");
                 return;
             }
-            if (!DateTime.TryParse(this.From_TextBox.Text, out this.From))
+            if (!DateTime.TryParse(From_TextBox.Text, out From))
             {
                 MessageBox.Show("Wrong date format in \"From\"");
                 return;
             }
-            if (!DateTime.TryParse(this.Until_TextBox.Text, out this.Until))
+            if (!DateTime.TryParse(Until_TextBox.Text, out Until))
             {
                 MessageBox.Show("Wrong date format in \"Until\"");
                 return;
             }
 
 
-            this.Diagnosis = this.Diagnosis_TextBox.Text;
-            this.IsConfirmedToAdd = true;
-            this.Close();
+            Diagnosis = Diagnosis_TextBox.Text;
+            IsConfirmedToAdd = true;
+            Close();
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

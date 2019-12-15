@@ -18,17 +18,17 @@ namespace Coursework.Tests
         public PatientControllerTests()
         {
             Random random = new Random();
-            this._options = new DbContextOptionsBuilder<HospitalContext>()
+            _options = new DbContextOptionsBuilder<HospitalContext>()
                 .UseInMemoryDatabase(databaseName: "HospitalTestDb" + random.Next(int.MinValue, int.MaxValue))
                 .Options;
 
-            this._controller = new PatientController(this._options);
+            _controller = new PatientController(_options);
         }
 
         public void Dispose()
         {
-            this._controller.DropDatabase();
-            this._controller.Dispose();
+            _controller.DropDatabase();
+            _controller.Dispose();
         }
 
         [Fact]
@@ -37,8 +37,8 @@ namespace Coursework.Tests
             Patient expected = new Patient("Foo", "To Add");
             Patient actual;
 
-            this._controller.AddPatient(expected);
-            actual = this._controller.GetPatient(expected.Id);
+            _controller.AddPatient(expected);
+            actual = _controller.GetPatient(expected.Id);
 
             Assert.Equal(expected, actual);
 
@@ -48,26 +48,26 @@ namespace Coursework.Tests
         public void RemovePatient_ShouldRemove()
         {
             Patient patient = new Patient("Foot", "To remove");
-            this._controller.AddPatient(patient);
+            _controller.AddPatient(patient);
 
-            Assert.NotNull(this._controller.GetPatient(patient.Id));
+            Assert.NotNull(_controller.GetPatient(patient.Id));
 
-            this._controller.RemovePatient(patient);
+            _controller.RemovePatient(patient);
 
-            Assert.Null(this._controller.GetPatient(patient.Id));
+            Assert.Null(_controller.GetPatient(patient.Id));
         }
 
         [Fact]
         public void AlterPatientInfo_ShouldAlter()
         {
             Patient oldPatient = new Patient("Foo", "To alter");
-            this._controller.AddPatient(oldPatient);
+            _controller.AddPatient(oldPatient);
 
-            Assert.Equal(oldPatient, this._controller.GetPatient(oldPatient.Id));
+            Assert.Equal(oldPatient, _controller.GetPatient(oldPatient.Id));
 
             Patient newPatientExpected = new Patient("Foo", "Altered") { Id = oldPatient.Id };
-            this._controller.AlterPatientInfo(oldPatient, newPatientExpected);
-            Patient newPatientActual = this._controller.GetPatient(oldPatient.Id);
+            _controller.AlterPatientInfo(oldPatient, newPatientExpected);
+            Patient newPatientActual = _controller.GetPatient(oldPatient.Id);
 
             Assert.Equal(newPatientExpected, newPatientActual);
         }
@@ -76,9 +76,9 @@ namespace Coursework.Tests
         public void GetPatient_ShouldGetById()
         {
             Patient expected = new Patient("Foo", "To get by id");
-            this._controller.AddPatient(expected);
+            _controller.AddPatient(expected);
 
-            Patient actual = this._controller.GetPatient(expected.Id);
+            Patient actual = _controller.GetPatient(expected.Id);
 
             Assert.Equal(expected, actual);
         }
@@ -87,9 +87,9 @@ namespace Coursework.Tests
         public void GetPatientByName_ShouldGetByName()
         {
             Patient expected = new Patient("Foo", "To get by name");
-            this._controller.AddPatient(expected);
+            _controller.AddPatient(expected);
 
-            ICollection<Patient> actual = this._controller.GetPatientsByName(expected.FirstName, expected.LastName);
+            ICollection<Patient> actual = _controller.GetPatientsByName(expected.FirstName, expected.LastName);
 
             Assert.True(actual.Contains(expected));
         }
@@ -97,8 +97,8 @@ namespace Coursework.Tests
         [Fact]
         public void AlterPatientInfo_ThrowsArgumentNull()
         {
-            Assert.Throws<ArgumentNullException>(() => this._controller.AlterPatientInfo(null, new Patient()));
-            Assert.Throws<ArgumentNullException>(() => this._controller.AlterPatientInfo(new Patient(), null));
+            Assert.Throws<ArgumentNullException>(() => _controller.AlterPatientInfo(null, new Patient()));
+            Assert.Throws<ArgumentNullException>(() => _controller.AlterPatientInfo(new Patient(), null));
         }
 
         [Fact]
@@ -113,10 +113,10 @@ namespace Coursework.Tests
 
             foreach (var patient in expected)
             {
-                this._controller.AddPatient(patient);
+                _controller.AddPatient(patient);
             }
 
-            List<Patient> actual = (List<Patient>)this._controller.GetPatients();
+            List<Patient> actual = (List<Patient>)_controller.GetPatients();
 
             Assert.True(expected.SequenceEqual(actual));
         }

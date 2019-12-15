@@ -20,24 +20,24 @@ namespace Coursework.Types
 
         public Appointment(Doctor doctor, Patient patient)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
-            this.DateTime = DateTime.Now;
+            Doctor = doctor;
+            Patient = patient;
+            DateTime = DateTime.Now;
         }
 
         public Appointment(Doctor doctor, Patient patient, DateTime dateTime)
         {
-            this.Doctor = doctor;
-            this.Patient = patient;
-            this.DateTime = dateTime;
+            Doctor = doctor;
+            Patient = patient;
+            DateTime = dateTime;
         }
 
 
         public void Copy(Appointment newAppointment)
         {
-            this.Doctor = newAppointment.Doctor;
-            this.Patient = newAppointment.Patient;
-            this.DateTime = newAppointment.DateTime;
+            Doctor = newAppointment.Doctor;
+            Patient = newAppointment.Patient;
+            DateTime = newAppointment.DateTime;
         }
 
         public bool Equals([AllowNull] Appointment other)
@@ -45,7 +45,7 @@ namespace Coursework.Types
             if (other == null)
                 return false;
 
-            return this.Id == other.Id;
+            return Id == other.Id;
         }
     }
 }

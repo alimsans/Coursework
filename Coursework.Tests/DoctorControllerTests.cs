@@ -17,17 +17,17 @@ namespace Coursework.Tests
         public DoctorControllerTests()
         {
             Random random = new Random();
-            this._options = new DbContextOptionsBuilder<HospitalContext>()
+            _options = new DbContextOptionsBuilder<HospitalContext>()
                 .UseInMemoryDatabase(databaseName: "HospitalTestDb" + random.Next(int.MinValue, int.MaxValue))
                 .Options;
 
-            this._controller = new DoctorController(this._options);
+            _controller = new DoctorController(_options);
         }
 
         public void Dispose()
         {
-            this._controller.DropDatabase();
-            this._controller.Dispose();
+            _controller.DropDatabase();
+            _controller.Dispose();
         }
 
         [Fact]
@@ -36,8 +36,8 @@ namespace Coursework.Tests
             Doctor expected = new Doctor("Foo", "To Add", "Numb");
             Doctor actual;
 
-            this._controller.AddDoctor(expected);
-            actual = this._controller.GetDoctor(expected.Id);
+            _controller.AddDoctor(expected);
+            actual = _controller.GetDoctor(expected.Id);
 
             Assert.Equal(expected, actual);
         }
@@ -45,33 +45,33 @@ namespace Coursework.Tests
         [Fact]
         public void AddDoctor_ShouldThrowNullArg()
         {
-            Assert.Throws<ArgumentNullException>(() => this._controller.AddDoctor(null));
+            Assert.Throws<ArgumentNullException>(() => _controller.AddDoctor(null));
         }
 
         [Fact]
         public void RemoveDoctor_ShouldRemove()
         {
             Doctor doctor = new Doctor("Foot", "To remove", "Numb");
-            this._controller.AddDoctor(doctor);
+            _controller.AddDoctor(doctor);
 
-            Assert.NotNull(this._controller.GetDoctor(doctor.Id));
+            Assert.NotNull(_controller.GetDoctor(doctor.Id));
 
-            this._controller.RemoveDoctor(doctor);
+            _controller.RemoveDoctor(doctor);
 
-            Assert.Null(this._controller.GetDoctor(doctor.Id));
+            Assert.Null(_controller.GetDoctor(doctor.Id));
         }
 
         [Fact]
         public void AlterDoctorInfo_ShouldAlter()
         {
             Doctor oldDoctor = new Doctor("Foo", "To alter", "Numb");
-            this._controller.AddDoctor(oldDoctor);
+            _controller.AddDoctor(oldDoctor);
 
-            Assert.Equal(oldDoctor, this._controller.GetDoctor(oldDoctor.Id));
+            Assert.Equal(oldDoctor, _controller.GetDoctor(oldDoctor.Id));
 
             Doctor newDoctorExpected = new Doctor("Foo", "Altered", "Doctor") { Id = oldDoctor.Id };
-            this._controller.AlterDoctorInfo(oldDoctor, newDoctorExpected);
-            Doctor newPatientActual = this._controller.GetDoctor(oldDoctor.Id);
+            _controller.AlterDoctorInfo(oldDoctor, newDoctorExpected);
+            Doctor newPatientActual = _controller.GetDoctor(oldDoctor.Id);
 
             Assert.Equal(newDoctorExpected, newPatientActual);
         }
@@ -79,17 +79,17 @@ namespace Coursework.Tests
         [Fact]
         public void AlterDoctorInfo_ThrowsNullArg()
         {
-            Assert.Throws<ArgumentNullException>(() => this._controller.AlterDoctorInfo(new Doctor(), null));
-            Assert.Throws<ArgumentNullException>(() => this._controller.AlterDoctorInfo(null, new Doctor()));
+            Assert.Throws<ArgumentNullException>(() => _controller.AlterDoctorInfo(new Doctor(), null));
+            Assert.Throws<ArgumentNullException>(() => _controller.AlterDoctorInfo(null, new Doctor()));
         }
 
         [Fact]
         public void GetDoctor_ShouldGetById()
         {
             Doctor expected = new Doctor("Foo", "To get by id", "Numb");
-            this._controller.AddDoctor(expected);
+            _controller.AddDoctor(expected);
 
-            Doctor actual = this._controller.GetDoctor(expected.Id);
+            Doctor actual = _controller.GetDoctor(expected.Id);
 
             Assert.Equal(expected, actual);
         }
@@ -98,9 +98,9 @@ namespace Coursework.Tests
         public void GetDoctorByName_ShouldGetByName()
         {
             Doctor expected = new Doctor("Foo", "To get by name", "Numb");
-            this._controller.AddDoctor(expected);
+            _controller.AddDoctor(expected);
 
-            ICollection<Doctor> actual = this._controller.GetDoctorsByName(expected.FirstName, expected.LastName);
+            ICollection<Doctor> actual = _controller.GetDoctorsByName(expected.FirstName, expected.LastName);
 
             Assert.True(actual.Contains(expected));
         }
@@ -109,9 +109,9 @@ namespace Coursework.Tests
         public void GetDoctorByOccupation_ShouldGetByOcc()
         {
             Doctor expected = new Doctor("Foo", "To get by occupation", "Numb");
-            this._controller.AddDoctor(expected);
+            _controller.AddDoctor(expected);
 
-            ICollection<Doctor> actual = this._controller.GetDoctorsByOccupation(expected.Occupation);
+            ICollection<Doctor> actual = _controller.GetDoctorsByOccupation(expected.Occupation);
 
             Assert.True(actual.Contains(expected));
         }
@@ -128,10 +128,10 @@ namespace Coursework.Tests
 
             foreach (var doctor in expected)
             {
-                this._controller.AddDoctor(doctor);
+                _controller.AddDoctor(doctor);
             }
 
-            List<Doctor> actual = (List<Doctor>)this._controller.GetDoctors();
+            List<Doctor> actual = (List<Doctor>)_controller.GetDoctors();
 
             Assert.True(expected.SequenceEqual(actual));
         }

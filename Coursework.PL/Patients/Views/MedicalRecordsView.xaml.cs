@@ -15,16 +15,16 @@ namespace Coursework.PL.Views.Patients
         private MedicalRecordsViewModel _medicalRecordsViewModel;
         public MedicalRecordsView(Patient patient)
         {
-            this.InitializeComponent();
-            this._medicalRecordsViewModel = new MedicalRecordsViewModel(patient);
-            this.MedicalRecords_DataGrid.ItemsSource = this._medicalRecordsViewModel.MedicalRecords;
-            this._medicalRecordsViewModel.UpdateMedicalRecordsAsync().ConfigureAwait(false);
+            InitializeComponent();
+            _medicalRecordsViewModel = new MedicalRecordsViewModel(patient);
+            MedicalRecords_DataGrid.ItemsSource = _medicalRecordsViewModel.MedicalRecords;
+            _medicalRecordsViewModel.UpdateMedicalRecordsAsync().ConfigureAwait(false);
         }
 
         private void MedicalRecords_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            this._medicalRecordsViewModel.SelectedMedicalRecord = dataGrid.SelectedItem as MedicalRecord;
+            _medicalRecordsViewModel.SelectedMedicalRecord = dataGrid.SelectedItem as MedicalRecord;
         }
 
         private async void AddMedicalRecord_ContextMenu_Click(object sender, RoutedEventArgs e)
@@ -36,19 +36,19 @@ namespace Coursework.PL.Views.Patients
                 return;
 
             MedicalRecord record = new MedicalRecord
-                (this._medicalRecordsViewModel.SelectedPatient,
+                (_medicalRecordsViewModel.SelectedPatient,
                 addMedicalRecordView.From,
                 addMedicalRecordView.Until,
                 addMedicalRecordView.Diagnosis);
-            await this._medicalRecordsViewModel.AddMedicalRecordAsync(record);
+            await _medicalRecordsViewModel.AddMedicalRecordAsync(record);
         }
 
         private async void RemoveMedicalRecord_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (this._medicalRecordsViewModel.SelectedMedicalRecord == null)
+            if (_medicalRecordsViewModel.SelectedMedicalRecord == null)
                 return;
 
-            await this._medicalRecordsViewModel.RemoveMedicalRecordAsync(this._medicalRecordsViewModel.SelectedMedicalRecord);
+            await _medicalRecordsViewModel.RemoveMedicalRecordAsync(_medicalRecordsViewModel.SelectedMedicalRecord);
         }
     }
 }

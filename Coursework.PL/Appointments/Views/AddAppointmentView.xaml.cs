@@ -23,39 +23,39 @@ namespace Coursework.PL.Appointments.Views
 
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.DoctorId_TextBox.Text)
-                || string.IsNullOrEmpty(this.PatientId_TextBox.Text))
+            if (string.IsNullOrEmpty(DoctorId_TextBox.Text)
+                || string.IsNullOrEmpty(PatientId_TextBox.Text))
             {
                 MessageBox.Show("Id cannot be empty.");
                 return;
             }
 
-            if (!int.TryParse(this.DoctorId_TextBox.Text, out _doctorId) ||
-                !int.TryParse(this.PatientId_TextBox.Text, out _patientId))
+            if (!int.TryParse(DoctorId_TextBox.Text, out _doctorId) ||
+                !int.TryParse(PatientId_TextBox.Text, out _patientId))
             {
                 MessageBox.Show("Invalid id format.");
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.DateTime_TextBox.Text))
+            if (string.IsNullOrEmpty(DateTime_TextBox.Text))
             {
                 MessageBox.Show("Date time cannot be empty.");
                 return;
             }
 
-            if (!DateTime.TryParse(this.DateTime_TextBox.Text, out _dateTime))
+            if (!DateTime.TryParse(DateTime_TextBox.Text, out _dateTime))
             {
                 MessageBox.Show("Try yyyy-mm-dd hh:mm", "Invalid date time format.");
                 return;
             }
 
-            this.IsConfirmed = true;
-            this.Close();
+            IsConfirmed = true;
+            Close();
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

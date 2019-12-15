@@ -21,14 +21,14 @@ namespace Coursework.Types
 
         public Patient(string firstName, string lastName)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
+            FirstName = firstName;
+            LastName = lastName;
         }
 
         public void Copy(Patient other)
         {
-            this.FirstName = other.FirstName;
-            this.LastName = other.LastName;
+            FirstName = other.FirstName;
+            LastName = other.LastName;
         }
 
         public bool Equals([AllowNull] Patient other)
@@ -36,7 +36,7 @@ namespace Coursework.Types
             if (other == null)
                 return false;
 
-            return this.Id == other.Id;
+            return Id == other.Id;
         }
     }
 }

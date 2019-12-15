@@ -12,16 +12,16 @@ namespace Coursework.PL.ViewModels
     {
         private MedicalRecordsController _controller;
         private ObservableCollection<MedicalRecord> _medicalRecords;
-        internal ObservableCollection<MedicalRecord> MedicalRecords { get => this._medicalRecords; }
+        internal ObservableCollection<MedicalRecord> MedicalRecords { get => _medicalRecords; }
 
         internal Patient SelectedPatient { get; set; }
         internal MedicalRecord SelectedMedicalRecord { get; set; }
 
         internal MedicalRecordsViewModel(Patient patient)
         {
-            this.SelectedPatient = patient;
-            this._medicalRecords = new ObservableCollection<MedicalRecord>();
-            this._medicalRecords.CollectionChanged += this.MedicalRecords_CollectionChanged;
+            SelectedPatient = patient;
+            _medicalRecords = new ObservableCollection<MedicalRecord>();
+            _medicalRecords.CollectionChanged += MedicalRecords_CollectionChanged;
         }
 
         /// <summary>
@@ -30,18 +30,18 @@ namespace Coursework.PL.ViewModels
         internal async Task UpdateMedicalRecordsAsync()
         {
             List<MedicalRecord> medicalRecords = null;
-            using (this._controller = new MedicalRecordsController())
+            using (_controller = new MedicalRecordsController())
                 await Task.Run(
-                    () => medicalRecords = (List<MedicalRecord>)this._controller.GetPatientsMedicalRecords(this.SelectedPatient));
+                    () => medicalRecords = (List<MedicalRecord>)_controller.GetPatientsMedicalRecords(SelectedPatient));
 
             if (medicalRecords != null)
             {
-                lock (this._medicalRecords)
+                lock (_medicalRecords)
                 {
-                    this._medicalRecords.Clear();
+                    _medicalRecords.Clear();
                     foreach (var record in medicalRecords)
                     {
-                        this._medicalRecords.Add(record);
+                        _medicalRecords.Add(record);
                     }
                 }
             }
@@ -52,10 +52,10 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task AddMedicalRecordAsync(MedicalRecord record)
         {
-            using (this._controller = new MedicalRecordsController())
-                await Task.Run(() => this._controller.AddMedicalRecord(record));
+            using (_controller = new MedicalRecordsController())
+                await Task.Run(() => _controller.AddMedicalRecord(record));
 
-            await this.UpdateMedicalRecordsAsync();
+            await UpdateMedicalRecordsAsync();
         }
 
         /// <summary>
@@ -63,18 +63,18 @@ namespace Coursework.PL.ViewModels
         /// </summary>
         internal async Task RemoveMedicalRecordAsync(MedicalRecord record)
         {
-            using (this._controller = new MedicalRecordsController())
-                await Task.Run(() => this._controller.RemoveMedicalRecord(record));
+            using (_controller = new MedicalRecordsController())
+                await Task.Run(() => _controller.RemoveMedicalRecord(record));
 
-            await this.UpdateMedicalRecordsAsync();
+            await UpdateMedicalRecordsAsync();
         }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void MedicalRecords_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this._medicalRecords != null)
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.MedicalRecords)));
+            if (_medicalRecords != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MedicalRecords)));
         }
     }
 }

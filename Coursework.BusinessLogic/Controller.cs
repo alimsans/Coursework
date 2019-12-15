@@ -13,22 +13,22 @@ namespace Coursework.BLL
 
         protected Controller()
         {
-            this._context = new HospitalContext();
+            _context = new HospitalContext();
         }
 
         protected Controller(DbContextOptions<HospitalContext> options)
         {
-            this._context = new HospitalContext(options);
+            _context = new HospitalContext(options);
         }
 
         public void Dispose()
         {
-            this._context.Dispose();
+            _context.Dispose();
         }
 
         public void DropDatabase()
         {
-            this._context.Database.EnsureDeleted();
+            _context.Database.EnsureDeleted();
         }
     }
 }

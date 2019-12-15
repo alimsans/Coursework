@@ -15,27 +15,27 @@ namespace Coursework.PL
         private AppointmentsPage _appointmentsPage;
         public MainWindow()
         {
-            this.InitializeComponent();
-            this._patientsPage = new PatientsPage();
-            this._doctorsPage = new DoctorsPage();
-            this._appointmentsPage = new AppointmentsPage();
+            InitializeComponent();
+            _patientsPage = new PatientsPage();
+            _doctorsPage = new DoctorsPage();
+            _appointmentsPage = new AppointmentsPage();
 
-            this.Main_Frame.Navigate(_patientsPage);
+            Main_Frame.Navigate(_patientsPage);
         }
 
         private void Patients_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Main_Frame.Navigate(this._patientsPage);
+            Main_Frame.Navigate(_patientsPage);
         }
 
         private void Doctors_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Main_Frame.Navigate(this._doctorsPage);
+            Main_Frame.Navigate(_doctorsPage);
         }
 
         private void Appointments_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Main_Frame.Navigate(this._appointmentsPage);
+            Main_Frame.Navigate(_appointmentsPage);
         }
     }
 }

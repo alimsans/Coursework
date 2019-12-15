@@ -20,28 +20,28 @@ namespace Coursework.PL.Appointments.ViewModels
 
         internal AppointmentsViewModel()
         {
-            this._appointments = new ObservableCollection<Appointment>();
-            this.AppointmentModels = new ObservableCollection<AppointmentModel>();
-            this.AppointmentModels.CollectionChanged += this.AppointmentModels_CollectionChanged;
+            _appointments = new ObservableCollection<Appointment>();
+            AppointmentModels = new ObservableCollection<AppointmentModel>();
+            AppointmentModels.CollectionChanged += AppointmentModels_CollectionChanged;
         }
 
         internal async Task UpdateAppointmentsAsync()
         {
             List<Appointment> appointments = null;
-            using (this._controller = new AppointmentController())
-                await Task.Run(() => appointments = (List<Appointment>)this._controller.GetAppointments());
+            using (_controller = new AppointmentController())
+                await Task.Run(() => appointments = (List<Appointment>)_controller.GetAppointments());
 
             if (appointments != null)
             {
-                lock (this._appointments)
-                lock (this.AppointmentModels)
+                lock (_appointments)
+                lock (AppointmentModels)
                 {
-                    this._appointments.Clear();
-                    this.AppointmentModels.Clear();
+                    _appointments.Clear();
+                    AppointmentModels.Clear();
                     foreach (var appointment in appointments)
                     {
-                        this._appointments.Add(appointment);
-                        this.AppointmentModels.Add(new AppointmentModel(appointment));
+                        _appointments.Add(appointment);
+                        AppointmentModels.Add(new AppointmentModel(appointment));
                     }
 
                 }
@@ -68,19 +68,19 @@ namespace Coursework.PL.Appointments.ViewModels
             using (_controller = new AppointmentController())
                await Task.Run(() => _controller.AddAppointment(appointment));
             
-            await this.UpdateAppointmentsAsync();
+            await UpdateAppointmentsAsync();
         }
 
         internal async Task RemoveAppointmentAsync(AppointmentModel appointmentModel)
         {
             Appointment appointment = null;
-            using (this._controller = new AppointmentController())
+            using (_controller = new AppointmentController())
             {
-                await Task.Run(() => appointment = this._controller.GetAppointment(appointmentModel.AppointmentId));
-                await Task.Run(() => this._controller.RemoveAppointment(appointment));
+                await Task.Run(() => appointment = _controller.GetAppointment(appointmentModel.AppointmentId));
+                await Task.Run(() => _controller.RemoveAppointment(appointment));
             }
 
-            await this.UpdateAppointmentsAsync();
+            await UpdateAppointmentsAsync();
         }
 
 

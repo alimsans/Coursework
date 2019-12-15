@@ -17,14 +17,14 @@ namespace Coursework.PL.Appointments.Views
             InitializeComponent();
 
             _appointmentsViewModel = new AppointmentsViewModel();
-            this.Appointments_DataGrid.ItemsSource = _appointmentsViewModel.AppointmentModels;
+            Appointments_DataGrid.ItemsSource = _appointmentsViewModel.AppointmentModels;
             _appointmentsViewModel.UpdateAppointmentsAsync().ConfigureAwait(false);
         }
 
         private void Appointments_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            this._appointmentsViewModel.SelectedAppointment = dataGrid.SelectedItem as AppointmentModel;
+            _appointmentsViewModel.SelectedAppointment = dataGrid.SelectedItem as AppointmentModel;
         }
 
         private async void AddAppointment_ContextMenu_Click(object sender, RoutedEventArgs e)

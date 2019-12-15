@@ -25,9 +25,9 @@ namespace Coursework.Types
             if (from > until)
                 throw new ArgumentException(nameof(from) + " time cannot later than " + nameof(until));
 
-            this.Day = day;
-            this.From = from;
-            this.Until = until;
+            Day = day;
+            From = from;
+            Until = until;
         }
 
         public WorkDay GetDefaultWorkDay(Day day)
@@ -46,7 +46,7 @@ namespace Coursework.Types
 
             foreach (Day day in days)
             {
-                workDays.Add(this.GetDefaultWorkDay(day));
+                workDays.Add(GetDefaultWorkDay(day));
             }
 
             return workDays;

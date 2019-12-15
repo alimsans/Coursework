@@ -33,8 +33,8 @@ namespace Coursework.BLL
         {
             if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
-            this._context.Doctors.Add(doctor);
-            this._context.SaveChanges();
+            _context.Doctors.Add(doctor);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Coursework.BLL
         /// <returns>Doctor from the db. NULL if not found</returns>
         public Doctor GetDoctor(int id)
         {
-            return this._context.Doctors
+            return _context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -58,7 +58,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctors()
         {
-            return this._context.Doctors
+            return _context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -73,7 +73,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if not found.</returns>
         public ICollection<Doctor> GetDoctorsByName(string firstName, string lastName)
         {
-            return this._context.Doctors
+            return _context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -88,7 +88,7 @@ namespace Coursework.BLL
         /// <returns>Doctors from the db. NULL if no doctor with specified occupation.</returns>
         public ICollection<Doctor> GetDoctorsByOccupation(string occupation)
         {
-            return this._context.Doctors
+            return _context.Doctors
                 .Include(p => p.Appointments)
                 .Include(w => w.WorkDays)
                 .AsNoTracking()
@@ -102,8 +102,8 @@ namespace Coursework.BLL
         /// <param name="id">doctor's id</param>
         public void RemoveDoctor(Doctor doctor)
         {
-            this._context.Doctors.Remove(doctor);
-            this._context.SaveChanges();
+            _context.Doctors.Remove(doctor);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -119,8 +119,8 @@ namespace Coursework.BLL
             if (oldDoctor == null) throw new ArgumentNullException(nameof(oldDoctor));
 
             oldDoctor.Copy(newDoctor);
-            this._context.Doctors.Update(oldDoctor);
-            this._context.SaveChanges();
+            _context.Doctors.Update(oldDoctor);
+            _context.SaveChanges();
         }
     }
 }

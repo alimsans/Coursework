@@ -23,25 +23,25 @@ namespace Coursework.Types
 
         public Doctor(string firstName, string lastName, string occupation)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Occupation = occupation;
-            this.WorkDays = new WorkDay().GetDefaultWorkWeek();
+            FirstName = firstName;
+            LastName = lastName;
+            Occupation = occupation;
+            WorkDays = new WorkDay().GetDefaultWorkWeek();
         }
 
         public Doctor(string firstName, string lastName, string occupation, ICollection<WorkDay> workDays)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Occupation = occupation;
-            this.WorkDays = workDays;
+            FirstName = firstName;
+            LastName = lastName;
+            Occupation = occupation;
+            WorkDays = workDays;
         }
 
         public void Copy(Doctor other)
         {
-            this.FirstName = other.FirstName;
-            this.LastName = other.LastName;
-            this.Occupation = other.Occupation;
+            FirstName = other.FirstName;
+            LastName = other.LastName;
+            Occupation = other.Occupation;
         }
 
         public bool Equals([AllowNull] Doctor other)
@@ -49,7 +49,7 @@ namespace Coursework.Types
             if (other == null)
                 return false;
 
-            return this.Id == other.Id;
+            return Id == other.Id;
         }
     }
 }

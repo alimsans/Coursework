@@ -13,11 +13,11 @@ namespace Coursework.PL.Doctors.Views
         private DoctorsViewModel _doctorsViewModel;
         public DoctorsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this._doctorsViewModel = new DoctorsViewModel();
-            this.Doctors_DataGrid.ItemsSource = this._doctorsViewModel.Doctors;
-            this._doctorsViewModel.UpdateDoctorsAsync().ConfigureAwait(false);
+            _doctorsViewModel = new DoctorsViewModel();
+            Doctors_DataGrid.ItemsSource = _doctorsViewModel.Doctors;
+            _doctorsViewModel.UpdateDoctorsAsync().ConfigureAwait(false);
         }
 
         private async void AddDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
@@ -33,50 +33,50 @@ namespace Coursework.PL.Doctors.Views
                 addDoctorView.LastName_TextBox.Text,
                 addDoctorView.Occupation_TextBox.Text);
 
-            await this._doctorsViewModel.AddDoctorAsync(doctor);
+            await _doctorsViewModel.AddDoctorAsync(doctor);
         }
 
         private void Doctors_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            this._doctorsViewModel.SelectedDoctor = dataGrid.SelectedItem as Doctor;
+            _doctorsViewModel.SelectedDoctor = dataGrid.SelectedItem as Doctor;
         }
 
         private async void EditDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (this._doctorsViewModel.SelectedDoctor == null)
+            if (_doctorsViewModel.SelectedDoctor == null)
                 return;
 
-            EditDoctorView editDoctorView = new EditDoctorView(this._doctorsViewModel.SelectedDoctor);
+            EditDoctorView editDoctorView = new EditDoctorView(_doctorsViewModel.SelectedDoctor);
             editDoctorView.ShowDialog();
 
             if (!editDoctorView.IsEdited)
                 return;
 
-            await this._doctorsViewModel.EditDoctorAsync(this._doctorsViewModel.SelectedDoctor, editDoctorView.NewDoctor);
+            await _doctorsViewModel.EditDoctorAsync(_doctorsViewModel.SelectedDoctor, editDoctorView.NewDoctor);
         }
 
         private async void RemoveDoctor_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            if (this._doctorsViewModel.SelectedDoctor == null)
+            if (_doctorsViewModel.SelectedDoctor == null)
                 return;
 
-            await this._doctorsViewModel.RemoveDoctorAsync(this._doctorsViewModel.SelectedDoctor);
+            await _doctorsViewModel.RemoveDoctorAsync(_doctorsViewModel.SelectedDoctor);
         }
 
         private async void RefreshDoctors_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
-            await this._doctorsViewModel.UpdateDoctorsAsync();
+            await _doctorsViewModel.UpdateDoctorsAsync();
         }
 
         private async void Search_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.FirstName_TextBox.Text) ||
-                string.IsNullOrEmpty(this.LastName_TextBox.Text))
+            if (string.IsNullOrEmpty(FirstName_TextBox.Text) ||
+                string.IsNullOrEmpty(LastName_TextBox.Text))
                 return;
 
-            await this._doctorsViewModel.SearchDoctorsByNameAsync
-                (this.FirstName_TextBox.Text, this.LastName_TextBox.Text);
+            await _doctorsViewModel.SearchDoctorsByNameAsync
+                (FirstName_TextBox.Text, LastName_TextBox.Text);
         }
     }
 }

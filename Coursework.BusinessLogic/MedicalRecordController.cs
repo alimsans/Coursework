@@ -31,10 +31,10 @@ namespace Coursework.BLL
             if (record == null) throw new ArgumentNullException(nameof(record));
             if (record.Patient == null) throw new ArgumentNullException(nameof(record.Patient));
 
-            this._context.Entry(record).State = EntityState.Added;
+            _context.Entry(record).State = EntityState.Added;
 
-            this._context.MedicalRecords.Add(record);
-            this._context.SaveChanges();
+            _context.MedicalRecords.Add(record);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Coursework.BLL
         {
             if (record == null) throw new ArgumentNullException(nameof(record));
 
-            this._context.MedicalRecords.Remove(record);
-            this._context.SaveChanges();
+            _context.MedicalRecords.Remove(record);
+            _context.SaveChanges();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Coursework.BLL
         {
             if (patient == null) throw new ArgumentNullException(nameof(patient));
 
-            return this._context.MedicalRecords
+            return _context.MedicalRecords
                 .Include(p => p.Patient)
                 .AsNoTracking()
                 .Where(m => m.Patient == patient)
@@ -77,7 +77,7 @@ namespace Coursework.BLL
         {
             if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-            return this._context.MedicalRecords
+            return _context.MedicalRecords
                 .Include(p => p.Patient)
                 .AsNoTracking()
                 .Where(m => m.Id == id)

@@ -20,10 +20,10 @@ namespace Coursework.Types
 
         public MedicalRecord(Patient patient, DateTime from, DateTime until, string diagnosis)
         {
-            this.Patient = patient;
-            this.From = from;
-            this.Until = until;
-            this.Diagnosis = diagnosis;
+            Patient = patient;
+            From = from;
+            Until = until;
+            Diagnosis = diagnosis;
         }
 
 
@@ -32,7 +32,7 @@ namespace Coursework.Types
             if (other == null)
                 return false;
 
-            return this.Id == other.Id;
+            return Id == other.Id;
         }
     }
 }

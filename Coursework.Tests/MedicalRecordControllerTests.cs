@@ -16,17 +16,17 @@ namespace Coursework.Tests
         public MedicalRecordControllerTests()
         {
             Random random = new Random();
-            this._options = new DbContextOptionsBuilder<HospitalContext>()
+            _options = new DbContextOptionsBuilder<HospitalContext>()
                 .UseInMemoryDatabase(databaseName: "HospitalTestDb" + random.Next(int.MinValue, int.MaxValue))
                 .Options;
 
-            this._controller = new MedicalRecordsController(this._options);
+            _controller = new MedicalRecordsController(_options);
         }
 
         public void Dispose()
         {
-            this._controller.DropDatabase();
-            this._controller.Dispose();
+            _controller.DropDatabase();
+            _controller.Dispose();
         }
 
         [Fact]
@@ -35,9 +35,9 @@ namespace Coursework.Tests
             Patient patient = new Patient("Foo", "Numb");
             MedicalRecord expected = new MedicalRecord(patient, DateTime.Parse("2019-01-01"), DateTime.Now, "Cancer");
 
-            this._controller.AddMedicalRecord(expected);
+            _controller.AddMedicalRecord(expected);
 
-            var actual = (List<MedicalRecord>)this._controller.GetPatientsMedicalRecords(patient);
+            var actual = (List<MedicalRecord>)_controller.GetPatientsMedicalRecords(patient);
 
             Assert.Contains(expected, actual);
         }
@@ -45,7 +45,7 @@ namespace Coursework.Tests
         [Fact]
         public void AddMedicalRecord_ShouldThrowArgNull()
         {
-            Assert.Throws<ArgumentNullException>(() => this._controller.AddMedicalRecord(null));
+            Assert.Throws<ArgumentNullException>(() => _controller.AddMedicalRecord(null));
         }
 
         [Fact]
@@ -55,11 +55,11 @@ namespace Coursework.Tests
             MedicalRecord recordToRemove = new MedicalRecord
                 (patient, DateTime.Parse("2019-10-10"), DateTime.Parse("2019-12-12"), "Cancer");
 
-            this._controller.AddMedicalRecord(recordToRemove);
-            Assert.Equal(recordToRemove, this._controller.GetMedicalRecord(recordToRemove.Id));
+            _controller.AddMedicalRecord(recordToRemove);
+            Assert.Equal(recordToRemove, _controller.GetMedicalRecord(recordToRemove.Id));
 
-            this._controller.RemoveMedicalRecord(recordToRemove);
-            Assert.Null(this._controller.GetMedicalRecord(recordToRemove.Id));
+            _controller.RemoveMedicalRecord(recordToRemove);
+            Assert.Null(_controller.GetMedicalRecord(recordToRemove.Id));
         }
     }
 }
