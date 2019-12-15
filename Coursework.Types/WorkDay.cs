@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
 namespace Coursework.Types
@@ -9,7 +8,7 @@ namespace Coursework.Types
     public enum Day { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
     public class WorkDay
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
         public Day Day { get; set; }

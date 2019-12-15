@@ -9,7 +9,7 @@
     
     <Grid Margin="2">
 
-        <Frame Grid.Row="1" Grid.Column="1" x:Name="Main_Frame" Margin="5"/>
+        <Frame Grid.Row="1" Grid.Column="1" x:Name="Main_Frame" Margin="5" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <StackPanel.Resources>

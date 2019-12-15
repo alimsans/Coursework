@@ -17,6 +17,10 @@
             <!-- Column definitions -->
             <DataGrid.Columns>
                 
+                <!-- Appointment -->
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=AppointmentId}" Width="*"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding Path=DateTime}" Width="8*"/>
+                
                 <!-- Doctor -->
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=DoctorId}" Width="*"/>
                 <DataGridTextColumn Header="Doctor's first name" Binding="{Binding Path=DoctorFirstName}" Width="10*"/>
@@ -42,7 +46,6 @@
     <Page.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Add an appointment" Click="AddAppointment_ContextMenu_Click"/>
-            <MenuItem Header="Edit appointment" Click="EditAppointment_ContextMenu_Click"/>
             <MenuItem Header="Remove appointment" Click="RemoveAppointment_ContextMenu_Click"/>
             <MenuItem Header="Refresh table" Click="RefreshAppointments_ContextMenu_Click"/>
         </ContextMenu>

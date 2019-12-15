@@ -1,5 +1,5 @@
-﻿using Coursework.PL.Appointments.ViewModels;
-using Coursework.Types;
+﻿using Coursework.PL.Appointments.Models;
+using Coursework.PL.Appointments.ViewModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,14 +46,12 @@ namespace Coursework.PL.Appointments.Views
             }
         }
 
-        private async void EditAppointment_ContextMenu_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private async void RemoveAppointment_ContextMenu_Click(object sender, RoutedEventArgs e)
         {
+            if (_appointmentsViewModel.SelectedAppointment == null)
+                return;
 
+            await _appointmentsViewModel.RemoveAppointmentAsync(_appointmentsViewModel.SelectedAppointment);
         }
 
         private async void RefreshAppointments_ContextMenu_Click(object sender, RoutedEventArgs e)

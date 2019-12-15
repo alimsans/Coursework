@@ -1,4 +1,5 @@
 ﻿using Coursework.BLL;
+using Coursework.PL.Appointments.Models;
 using Coursework.Types;
 using System;
 using System.Collections.Generic;
@@ -70,10 +71,14 @@ namespace Coursework.PL.Appointments.ViewModels
             await this.UpdateAppointmentsAsync();
         }
 
-        internal async Task RemoveAppointmentAsync(Appointment appointment)
+        internal async Task RemoveAppointmentAsync(AppointmentModel appointmentModel)
         {
+            Appointment appointment = null;
             using (this._controller = new AppointmentController())
+            {
+                await Task.Run(() => appointment = this._controller.GetAppointment(appointmentModel.AppointmentId));
                 await Task.Run(() => this._controller.RemoveAppointment(appointment));
+            }
 
             await this.UpdateAppointmentsAsync();
         }

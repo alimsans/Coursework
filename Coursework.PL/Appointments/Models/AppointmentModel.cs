@@ -1,9 +1,7 @@
 ﻿using Coursework.Types;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace Coursework.PL.Appointments.ViewModels
+namespace Coursework.PL.Appointments.Models
 {
     internal class AppointmentModel
     {

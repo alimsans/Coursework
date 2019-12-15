@@ -19,6 +19,8 @@ namespace Coursework.PL
             this._patientsPage = new PatientsPage();
             this._doctorsPage = new DoctorsPage();
             this._appointmentsPage = new AppointmentsPage();
+
+            this.Main_Frame.Navigate(_patientsPage);
         }
 
         private void Patients_Button_Click(object sender, RoutedEventArgs e)
