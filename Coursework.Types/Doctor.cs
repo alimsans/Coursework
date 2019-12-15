@@ -13,7 +13,7 @@ namespace Coursework.Types
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Occupation { get; set; }
-        public List<Appointment> Appointments { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
         public ICollection<WorkDay> WorkDays { get; set; }
 
         public Doctor()

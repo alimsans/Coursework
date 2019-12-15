@@ -12,8 +12,8 @@ namespace Coursework.Types
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<Appointment> Appointments { get; set; }
-        public List<MedicalRecord> MedicalRecords { get; set; }
+        public ICollection<Appointment> Appointments { get; set; }
+        public ICollection<MedicalRecord> MedicalRecords { get; set; }
 
         public Patient()
         {
