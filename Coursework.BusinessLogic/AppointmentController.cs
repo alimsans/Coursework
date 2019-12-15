@@ -32,18 +32,9 @@ namespace Coursework.BLL
             if (appointment.Doctor == null) throw new ArgumentNullException(nameof(appointment.Doctor));
             if (appointment.Patient == null) throw new ArgumentNullException(nameof(appointment.Patient));
 
-
-            Doctor doctor = appointment.Doctor;
-            Patient patient = appointment.Patient;
-            appointment.Doctor = null;
-            appointment.Patient = null;
+            this._context.Entry(appointment).State = EntityState.Added;
 
             this._context.Appointments.Add(appointment);
-
-            appointment.Doctor = doctor;
-            appointment.Patient = patient;
-
-
             this._context.SaveChanges();
         }
 

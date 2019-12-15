@@ -31,9 +31,9 @@ namespace Coursework.BLL
             if (record == null) throw new ArgumentNullException(nameof(record));
             if (record.Patient == null) throw new ArgumentNullException(nameof(record.Patient));
 
-            Patient tmpPatient = record.Patient;
-            record.Patient = null;
-            this._context.MedicalRecords.Add(record).Entity.Patient = tmpPatient;
+            this._context.Entry(record).State = EntityState.Added;
+
+            this._context.MedicalRecords.Add(record);
             this._context.SaveChanges();
         }
 

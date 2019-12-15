@@ -29,12 +29,14 @@ namespace Coursework.BLL
         /// <param name="lastName">Patient's last name</param>
         /// <param name="occupation">Patient's occupation</param>
         /// <returns>Id of the added patient</returns>
-        public int AddPatient(Patient patient)
+        public void AddPatient(Patient patient)
         {
-            int id = this._context.Patients.Add(patient).Entity.Id;
-            this._context.SaveChanges();
+            if (patient == null) throw new ArgumentNullException(nameof(patient));
 
-            return id;
+            this._context.Entry(patient).State = EntityState.Added;
+
+            this._context.Patients.Add(patient);
+            this._context.SaveChanges();
         }
 
         /// <summary>
